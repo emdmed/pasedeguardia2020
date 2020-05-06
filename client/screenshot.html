@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Triagix - Dashboard</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="css/sb-admin-2.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+      <!-- Sidebar - Brand -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-text mx-3">Triagix</div>
+      </a>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0">
+
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item active">
+        <br>
+        <button class="btn btn-block btn-primary"  data-toggle="modal" data-target="#clinic_triage_modal">
+          <span>Ingresar paciente</span></button>
+        <button class="btn btn-block btn-primary" id="getPatientList_btn">
+          <span>Recargar pacientes</span></button>
+      </li>
+
+
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+          <!-- Sidebar Toggle (Topbar) -->
+          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+            <i class="fa fa-bars"></i>
+          </button>
+
+          <!-- Topbar Navbar -->
+          <ul class="navbar-nav ml-auto">
+
+            <div class="topbar-divider d-none d-sm-block"></div>
+
+            <!-- Nav Item - User Information -->
+            <li class="nav-item dropdown no-arrow">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Sanatorio Del Rio</span>
+                <img class="img-profile rounded-circle" src="./images/hospitallogo.png">
+              </a>
+            </li>
+
+          </ul>
+
+        </nav>
+        <!-- End of Topbar -->
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800" id="waitingPatientTitle"></h1>
+          </div>
+
+            <!-- Content Row -->
+            <div class="row">
+
+              <!-- Area Chart -->
+              <div class="col-xl-8 col-lg-7 pr-3" id="patient_cards_here" style="overflow-y: auto; max-height: 70vh; border-right-color: rgb(211, 211, 211); border-right-style: solid; border-right-width: 2px;">
+
+                <div class="card shadow-sm mb-2 border-left-danger" id="${element.info.phone}">
+                  <div class="card-body p-2">
+                      <div class="row no-gutters align-items-center">
+                          <div class="col mr-2">
+                              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Nro 4</div>
+                              <div class="h4 mb-0 font-weight-bold text-gray-800">35 años</div>
+                          </div>
+                          <div class="col mr-2">
+                              <div class="font-weight-bold mb-1">Esperando hace 5 minutos</div>
+                          </div>
+                          <div class="col-auto">
+                          <img src="./images/triagix/correct.png" height="20px" class="px-4">
+                          <img src="./images/triagix/coronavirus.png" height="30px" class="mr-3">
+                          <a class="btn btn-primary" href="https://web.whatsapp.com/send?phone=${element.info.phone}&text=Hola%20porfavor%20complete%20el%20ingreso%20a%20la%20guardia%20con%20el%20siguiente%20link%20https://${triagixweb}/paciente" >Enviar triage</a>
+                          <button class="btn btn-outline-primary delete_patient" id="">Atendido</button>
+                          </div>
+                      </div>  
+                  </div>
+                </div>
+
+                <div class="card shadow-sm mb-2 border-left-danger" id="${element.info.phone}">
+                  <div class="card-body p-2">
+                      <div class="row no-gutters align-items-center">
+                          <div class="col mr-2">
+                              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Nro 6</div>
+                              <div class="h4 mb-0 font-weight-bold text-gray-800">62 años</div>
+                          </div>
+                          <div class="col mr-2">
+                              <div class="font-weight-bold mb-1">Esperando hace 7 minutos</div>
+                          </div>
+                          <div class="col-auto">
+                          <img src="./images/triagix/correct.png" height="20px" class="px-4">
+                          <a class="btn btn-primary" href="https://web.whatsapp.com/send?phone=${element.info.phone}&text=Hola%20porfavor%20complete%20el%20ingreso%20a%20la%20guardia%20con%20el%20siguiente%20link%20https://${triagixweb}/paciente" >Enviar triage</a>
+                          <button class="btn btn-outline-primary delete_patient" id="${element.info.phone}">Atendido</button>
+                          </div>
+                      </div>  
+                  </div>
+                </div>
+
+                <div class="card shadow-sm mb-2 border-left-warning" id="${element.info.phone}">
+                  <div class="card-body p-2">
+                      <div class="row no-gutters align-items-center">
+                          <div class="col mr-2">
+                              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Nro 2</div>
+                              <div class="h4 mb-0 font-weight-bold text-gray-800">56 años</div>
+                          </div>
+                          <div class="col mr-2">
+                              <div class="font-weight-bold mb-1">Esperando hace 15 minutos</div>
+                          </div>
+                          <div class="col-auto">
+                          <img src="./images/triagix/correct.png" height="20px" class="px-4">
+                          <a class="btn btn-primary" href="https://web.whatsapp.com/send?phone=${element.info.phone}&text=Hola%20porfavor%20complete%20el%20ingreso%20a%20la%20guardia%20con%20el%20siguiente%20link%20https://${triagixweb}/paciente" >Enviar triage</a>
+                          <button class="btn btn-outline-primary delete_patient" id="${element.info.phone}">Atendido</button>
+                          </div>
+                      </div>  
+                  </div>
+                </div>
+
+                <div class="card shadow-sm mb-2 border-left-success" id="${element.info.phone}">
+                  <div class="card-body p-2">
+                      <div class="row no-gutters align-items-center">
+                          <div class="col mr-2">
+                              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Nro 1</div>
+                              <div class="h4 mb-0 font-weight-bold text-gray-800">20 años</div>
+                          </div>
+                          <div class="col mr-2">
+                              <div class="font-weight-bold mb-1">Esperando hace 25 minutos</div>
+                          </div>
+                          <div class="col-auto">
+                          <img src="./images/triagix/correct.png" height="20px" class="px-4">
+                          <a class="btn btn-primary" href="https://web.whatsapp.com/send?phone=${element.info.phone}&text=Hola%20porfavor%20complete%20el%20ingreso%20a%20la%20guardia%20con%20el%20siguiente%20link%20https://${triagixweb}/paciente" >Enviar triage</a>
+                          <button class="btn btn-outline-primary delete_patient" id="${element.info.phone}">Atendido</button>
+                          </div>
+                      </div>  
+                  </div>
+                </div>
+
+                <div class="card shadow-sm mb-2 border-left-success" id="${element.info.phone}">
+                  <div class="card-body p-2">
+                      <div class="row no-gutters align-items-center">
+                          <div class="col mr-2">
+                              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Nro 2</div>
+                              <div class="h4 mb-0 font-weight-bold text-gray-800">38 años</div>
+                          </div>
+                          <div class="col mr-2">
+                              <div class="font-weight-bold mb-1">Esperando hace 29 minutos</div>
+                          </div>
+                          <div class="col-auto">
+                          <img src="./images/triagix/correct.png" height="20px" class="px-4">
+                          <a class="btn btn-primary" href="https://web.whatsapp.com/send?phone=${element.info.phone}&text=Hola%20porfavor%20complete%20el%20ingreso%20a%20la%20guardia%20con%20el%20siguiente%20link%20https://${triagixweb}/paciente" >Enviar triage</a>
+                          <button class="btn btn-outline-primary delete_patient" id="${element.info.phone}">Atendido</button>
+                          </div>
+                      </div>  
+                  </div>
+                </div>
+
+                <div class="card shadow-sm mb-2 border-left-dark" id="${element.info.phone}">
+                  <div class="card-body p-2">
+                      <div class="row no-gutters align-items-center">
+                          <div class="col mr-2">
+                              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Nro 10</div>
+                              <div class="h4 mb-0 font-weight-bold text-gray-800">63 años</div>
+                          </div>
+                          <div class="col mr-2">
+                              <div class="font-weight-bold mb-1">Esperando hace pocos segundos</div>
+                          </div>
+                          <div class="col-auto">
+                          <img src="./images/triagix/timer.png" height="20px" class="px-4">
+                          <a class="btn btn-primary" href="https://web.whatsapp.com/send?phone=${element.info.phone}&text=Hola%20porfavor%20complete%20el%20ingreso%20a%20la%20guardia%20con%20el%20siguiente%20link%20https://${triagixweb}/paciente" >Enviar triage</a>
+                          <button class="btn btn-outline-primary delete_patient" id="${element.info.phone}">Atendido</button>
+                          </div>
+                      </div>  
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-auto pl-3">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="btn btn-danger btn-circle redPatientsAlert">2</div>
+                    <div class="btn btn-warning btn-circle yellowPatientsAlert">1</div>
+                    <div class="btn btn-success btn-circle greenPatientsAlert">2</div>
+                    <div class="btn btn-dark btn-circle blackPatientsAlert">1</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-auto">
+                <div class="card">
+                  <div class="card-body my-auto">
+                    <div class="row my-auto">
+                      <div class="col my-auto">
+                        <img src="./images/triagix/coronavirus.png" height="30px" class="my-auto">
+                      </div>
+                      <div class="col my-auto">
+                        <p class="covidAlerts_n my-auto">1</p>
+                      </div> 
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!--widgets here-->
+
+            </div>
+          </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+
+      <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="login.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+    <!--MODALS-->
+
+    <!--Clinic triage modal-->
+    <!-- Modal -->
+    <div class="modal fade" id="clinic_triage_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+          <h5 class="modal-title text-primary" id="exampleModalCenterTitle">Agregar paciente a Triage</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+          </div>
+          <div class="modal-body">
+              <p>Telefono</p>
+              <input type="number" placeholder="Telefono celular" id="patient_phone" value="54911" class="form-control">
+              <br>
+              <p>Edad</p>
+              <input type="number" placeholder="Edad" id="patient_age" class="form-control">
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+              <button type="button" class="btn btn-primary" id="send_patient_btn">Continuar</button>
+          </div>
+      </div>
+      </div>
+  </div>
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="js/sb-admin-2.min.js"></script>
+
+  <!-- Page level plugins -->
+  <script src="vendor/chart.js/Chart.min.js"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="js/demo/chart-area-demo.js"></script>
+  <script src="js/demo/chart-pie-demo.js"></script>
+
+  <script type="text/javascript" src="./js/moment-with-locales.js"></script>
+  <script type="text/javascript" src="./js/adminCharts.js"></script>
+  <script type="text/javascript" src="./js/clinicTriageQuestions.js"></script>
+  <script type="text/javascript" src="./js/main.js"></script>
+
+</body>
+
+</html>
