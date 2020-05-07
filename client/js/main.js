@@ -130,16 +130,131 @@ function renderPatientCard(patient){
             <div class="row mt-2">
                 <div class="card w-100">
                     <div class="card-body">
-                        <h5>Controles</h5>
-                        <div id="${patient.info.id}" class="controles_here"></div>
+
+                        <div class="container-fluid controles_here" id="${patient.info.id}">
+
+                            <div class="row">
+                                <h5 class="m-0">Controles</h5>
+                                <button class="btn btn-sm btn-primary ml-4 btn-circle show_controles_modal" data-toggle="modal" data-target="#controles_modal" id="${patient.info.id}">+</div>
+                            </div>
+
+                        </div>
+                
                     </div>
                 </div>
             </div>
 
- 
-          
-  
         </div>
 
     `)
+}
+
+$("body").on("click", ".show_controles_modal", function(){
+    let id = $(this).attr("id");
+
+    $("#controles_modal").find(".add_control_hemodinamico_btn").attr("id", id);
+})
+
+$("body").on("click", ".add_control_hemodinamico_btn", function(){
+
+    $("#controles_modal").modal("hide");
+
+    let id = $(this).attr("id");
+
+    let foundPatient = findPatientById(id);
+
+    if(foundPatient === false){
+        alert("error on finding patient");
+    } else {
+        let newcontrol = createControlHemodinamico();
+        foundPatient.controls.push(newcontrol);
+        updateStoredPatientById(id, foundPatient);
+        renderControlesFromPatientId(id);
+    }
+
+})
+
+function renderControlesFromPatientId(id){
+    let patientList = getStoredPatients();
+    let found = findPatientById(id);
+
+    for(let i = 0; i < found.controls.length; i++){
+
+        if(found.controls[i].type === "hemodinamico"){
+            $(".controles_here").append(`
+            
+                <div class="row w-100 mt-2">
+                    <div class="card w-100">
+                        <div class="card-body">
+                            <h5>Hemodinamico</h5>
+                            <p>hace x tiempo</p>
+                            <hr>
+                            <p>TAS</p>
+                            <p>TAD</p>
+                            <p>TAM</p>
+                        </div>
+                    </div>
+                </div>
+            
+            `)
+        }
+    }
+}
+
+
+
+function findPatientById(id){
+
+    let patientList = getStoredPatients();
+    let foundPatient;
+
+    for(let i = 0; i < patientList.length; i++){
+        if(patientList[i].info.id === id){
+
+            foundPatient = patientList[i];
+            console.log(foundPatient)
+            return foundPatient;
+        } else {
+            return false
+        }
+    }
+}
+
+function findPatientIndexById(id){
+    let patientList = getStoredPatients();
+
+    for(let i = 0; i < patientList.length; i++){
+        if(patientList[i].info.id === id){
+            return i;
+        } else {
+            return false
+        }
+    }
+}
+
+function createControlHemodinamico(){
+    let newcontrol = {
+        type: "hemodinamico",
+        date: new Date().getTime(),
+        ts: "",
+        td: "",
+        tam: ()=>{
+            let one = 2 * +this.td;
+            let two = +one + +this.ts;
+            let three = +two / 3
+            return three;
+        }
+    }
+
+    return newcontrol;
+}
+
+function updateStoredPatientById(id, newpatient){
+    let patientList = getStoredPatients();
+    let patientIndex = findPatientIndexById(id);
+
+    patientList[patientIndex] = newpatient;
+
+    localStorage.setItem("patients", JSON.stringify(patientList));
+    console.log("Patient list updated!");
 }
