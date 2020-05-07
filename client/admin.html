@@ -20,7 +20,7 @@
 
 </head>
 
-<body id="page-top" onload="requestPatientExample()">
+<body id="page-top">
 
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -43,12 +43,12 @@
           <span>Ingresar paciente</span></button>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <span>Pacientes</span>
+        <a class="nav-link"id="see_patients_btn" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <span >Pacientes</span>
         </a>
-        <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item active">Cama Paciente</a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded small_patient_container_onsidebar">
+           
           </div>
         </div>
       </li>
@@ -101,7 +101,7 @@
             <div class="row">
 
               <!-- Area Chart -->
-              <div class="col-xl-8 col-lg-7 pr-3" id="patient_cards_here" style="overflow-y: auto; max-height: 70vh; border-right-color: rgb(211, 211, 211); border-right-style: solid; border-right-width: 2px;">
+              <div class="col-xl-8 col-lg-7 pr-3" id="patient_cards_here" style="overflow-y: auto; max-height: 70vh;">
 
 
               </div>
@@ -172,17 +172,17 @@
           </div>
           <div class="modal-body">
               <p>Identificación</p>
-              <input type="number" placeholder="Identificación" id="patient_name" class="form-control">
+              <input type="text" placeholder="Identificación" id="patient_name" class="form-control">
               <br>
               <p>Edad</p>
               <input type="number" placeholder="Edad" id="patient_age" class="form-control">
               <br>
               <p>Cama</p>
-              <input type="number" placeholder="Cama" id="patient_bed" class="form-control">
+              <input type="text" placeholder="Cama" id="patient_bed" class="form-control">
           </div>
           <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-              <button type="button" class="btn btn-primary" id="send_patient_btn">Continuar</button>
+              <button type="button" class="btn btn-primary" id="create_patient_btn">Continuar</button>
           </div>
       </div>
       </div>
@@ -201,13 +201,10 @@
   <!-- Page level plugins -->
   <script src="vendor/chart.js/Chart.min.js"></script>
 
-  <!-- Page level custom scripts -->
-  <script src="js/demo/chart-area-demo.js"></script>
-  <script src="js/demo/chart-pie-demo.js"></script>
 
+
+  <script type="text/javascript" src="./js/models/patientModel.js"></script>
   <script type="text/javascript" src="./js/moment-with-locales.js"></script>
-  <script type="text/javascript" src="./js/adminCharts.js"></script>
-  <script type="text/javascript" src="./js/clinicTriageQuestions.js"></script>
   <script type="text/javascript" src="./js/main.js"></script>
 
 </body>
