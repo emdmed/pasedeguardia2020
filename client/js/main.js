@@ -357,6 +357,10 @@ $("body").on("click", ".change_tas", function(){
         if(!thisPatient || thisPatient === undefined || thisPatient === null){
             alert("Error at retrieving patient");
         } else {
+
+            
+            thisPatient.controls[controlIndex].ts = promptval
+            updateStoredPatientById(id, thisPatient);
   
             if(thisPatient.controls[controlIndex].ts > 0 && thisPatient.controls[controlIndex].td > 0){
                 console.log("TAS ", calcTAM(thisPatient.controls[controlIndex].ts, thisPatient.controls[controlIndex].td).toFixed(0));
@@ -367,8 +371,6 @@ $("body").on("click", ".change_tas", function(){
                 $(thisobj).parent().parent().find(".tam_value").text("TAM "+tam);
             }
 
-            thisPatient.controls[controlIndex].ts = promptval
-            updateStoredPatientById(id, thisPatient);
             
         }
     }
@@ -397,6 +399,10 @@ $("body").on("click", ".change_tad", function(){
             alert("Error at retrieving patient");
         } else {
 
+            
+            thisPatient.controls[controlIndex].td = promptval
+            updateStoredPatientById(id, thisPatient);
+
             if(thisPatient.controls[controlIndex].ts > 0 && thisPatient.controls[controlIndex].td > 0){
                 console.log("TAD ", calcTAM(thisPatient.controls[controlIndex].ts, thisPatient.controls[controlIndex].td).toFixed(0));
                 let tam = calcTAM(thisPatient.controls[controlIndex].ts, thisPatient.controls[controlIndex].td).toFixed(0);
@@ -406,8 +412,6 @@ $("body").on("click", ".change_tad", function(){
                 $(thisobj).parent().parent().find(".tam_value").text("TAM "+ tam);
             }
 
-            thisPatient.controls[controlIndex].td = promptval
-            updateStoredPatientById(id, thisPatient);
         }
     }
 })
