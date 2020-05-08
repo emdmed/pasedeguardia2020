@@ -20,7 +20,7 @@
 
 </head>
 
-<body id="page-top">
+<body id="page-top" onload="checkAndLoadExistingPatients()">
 
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -42,6 +42,9 @@
         <button class="btn btn-block btn-primary"  data-toggle="modal" data-target="#clinic_triage_modal">
           <span>Ingresar paciente</span></button>
       </li>
+
+      <hr class="sidebar-divider">
+
       <li class="nav-item active">
         <a class="nav-link"id="see_patients_btn" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           <span >Pacientes</span>
@@ -79,8 +82,7 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Pase (fecha)</span>
-                <img class="img-profile rounded-circle" src="./images/hospitallogo.png">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">PDG</span>
               </a>
             </li>
 
@@ -90,18 +92,18 @@
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
-        <div class="container-fluid">
+        <div class="container-fluid t-100">
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800" id="waitingPatientTitle"></h1>
+            <h1 class="h4 mb-0 text-gray-800">Paciente</h1>
           </div>
 
             <!-- Content Row -->
             <div class="row">
 
               <!-- Area Chart -->
-              <div class="col-xl-8 col-lg-7 pr-3" id="patient_cards_here" style="overflow-y: auto; max-height: 90vh;">
+              <div class="col-xl-8 col-lg-7 pr-3" id="patient_cards_here" style="overflow-y: auto;">
 
 
               </div>
@@ -200,6 +202,7 @@
         </div>
         <div class="modal-body">
           <button class="btn btn-block btn-primary add_control_hemodinamico_btn">Hemodinamico</button>
+          <button class="btn btn-block btn-primary add_control_balance_btn">Balance</button>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
