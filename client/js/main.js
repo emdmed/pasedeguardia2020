@@ -712,23 +712,29 @@ function findPatientIndexById(id){
 }
 
 function findBalanceInPatient(patient){
+    let balance = false;
     for(let i = 0; i < patient.controls.length; i++){
         if(patient.controls[i].type === "balance"){
-            return patient.controls[i];
+            balance =  patient.controls[i];
         } else {
-            return false;
+      
         }
     }
+
+    return balance;
 }
 
 function findBalanceControlIndexInPatient(patient){
+    let found = false;
     for(let i = 0; i < patient.controls.length; i++){
         if(patient.controls[i].type === "balance"){
-            return i;
+            found =  i;
         } else {
-            return false;
+            
         }
     }
+
+    return found;
 }
 
 function createControlHemodinamico(){
