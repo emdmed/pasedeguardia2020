@@ -9668,7 +9668,7 @@ a:focus {
 
 .bg-gradient-primary {
   background-color: #3378a5;
-  background-image: linear-gradient(180deg, #3378a5 10%, #9e7095 100%);
+  background-image: linear-gradient(180deg, #3378a5 10%, #14364d 100%);
   background-size: cover;
 }
 
@@ -10999,4 +10999,11 @@ body.sidebar-toggled footer.sticky-footer {
 
 .card{
   border: none;
+}
+
+#main_image{
+  margin-top: 30%;
+  width: 100%;
+  opacity: 0.2;
+  
 }
