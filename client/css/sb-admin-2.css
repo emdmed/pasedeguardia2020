@@ -11011,3 +11011,7 @@ body.sidebar-toggled footer.sticky-footer {
 html{
   background-color: #F8F9FC;
 }
+
+a{
+  cursor: pointer;
+}
