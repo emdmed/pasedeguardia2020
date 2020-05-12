@@ -824,16 +824,23 @@ $("body").on("click", ".change_bed", function(){
     let id = $(this).attr("id");
 
     let newbed = prompt("Ingrese nueva cama");
-
     let paciente = findPatientById(id);
+    
+    if(newbed === null){
+        
+    } else {
+        paciente.info.bed = newbed;
 
-    paciente.info.bed = newbed;
+        console.log(paciente);
+    
+        updateStoredPatientById(id, paciente);
+    
+        $(this).text(newbed);
+    }
 
-    console.log(paciente);
 
-    updateStoredPatientById(id, paciente);
 
-    $(this).text(newbed);
+
 
 })
 
