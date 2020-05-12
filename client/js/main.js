@@ -34,6 +34,10 @@ $("body").on("click", "#create_patient_btn", function(){
         STOREDPATIENTS.push(newPatient);
         console.log(STOREDPATIENTS);
         localStorage.setItem("patients", JSON.stringify(STOREDPATIENTS));
+
+        //close modal
+        $("#clinic_triage_modal").modal("hide");
+
     }
 })
 
@@ -45,7 +49,7 @@ $("body").on("click", "#see_patients_btn", function(){
     if($(this).attr("class") === "nav-link collapsed" || $(this).attr("class") === "nav-link"  ){
         patientList.forEach(element=>{
             $(".small_patient_container_onsidebar").append(`
-                <a class="collapse-item active display_patient_button" data-toggle="collapse" data-target="#collapseTwo" id="${element.info.id}">${element.info.bed} ${element.info.name}</a>
+                <a class="collapse-item active display_patient_button sidebarToggleTop" data-toggle="collapse" data-target="#collapseTwo" id="${element.info.id}">${element.info.bed} ${element.info.name}</a>
             `)
         })
     }
@@ -100,6 +104,13 @@ $("body").on("click", ".display_patient_button", function(){
         $("#collapseTwo").collapse();
     }
 
+    //hide sidebar
+    $("body").toggleClass("sidebar-toggled");
+    $(".sidebar").toggleClass("toggled");
+    if ($(".sidebar").hasClass("toggled")) {
+      $('.sidebar .collapse').collapse('hide');
+    };
+
 })
 
 function renderPatientCard(patient){
@@ -107,8 +118,9 @@ function renderPatientCard(patient){
     
         <div class="container-fluid">
             <div class="row my-auto mx-auto">
-            <img class="mr-2 my-auto mx-auto" src="./images/hospital-bed.png" height="30px">
-                <h3 class=" text-dark my-auto mx-auto">${patient.info.bed}</h3>
+   
+                <h3 class="text-dark my-auto mx-auto change_bed" id="${patient.info.id}">${patient.info.bed}</h3>
+                <img class="mr-2 my-auto mx-auto change_bed" src="./images/hospital-bed.png" height="30px">
                 <h5 class=" text-dark my-auto mx-auto">${patient.info.name}</h4>
                 <h5 class=" text-dark my-auto mx-auto">${patient.info.age} años</h3>
             </div>
@@ -145,8 +157,8 @@ function renderPatientCard(patient){
                         <div class="container-fluid">
 
                             <div class="row">
-                                <h5 class="m-0">Controles</h5>
-                                <button class="btn btn-sm btn-primary ml-4 show_controles_modal" data-toggle="modal" data-target="#controles_modal" id="${patient.info.id}">+</div>
+                                <h5 class="my-auto">Controles</h5>
+                                <button class="btn btn-sm btn-outline-primary ml-4 show_controles_modal" data-toggle="modal" data-target="#controles_modal" id="${patient.info.id}">+</div>
                             </div>
 
                             <div class="controles_here" id="${patient.info.id}">
@@ -791,3 +803,21 @@ function calcTAM(ts, td){
     let three = +two / 3
     return three;
 }
+
+$("body").on("click", ".change_bed", function(){
+
+    let id = $(this).attr("id");
+
+    let newbed = prompt("Ingrese nueva cama");
+
+    let paciente = findPatientById(id);
+
+    paciente.info.bed = newbed;
+
+    console.log(paciente);
+
+    updateStoredPatientById(id, paciente);
+
+    $(this).text(newbed);
+
+})

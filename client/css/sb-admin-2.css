@@ -11006,5 +11006,8 @@ body.sidebar-toggled footer.sticky-footer {
   margin-top: 30%;
   width: 100%;
   opacity: 0.2;
-  
+}
+
+html{
+  background-color: #F8F9FC;
 }
