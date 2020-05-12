@@ -20,12 +20,44 @@
 
 </head>
 
-<body onload="checkAndLoadExistingPatients()">
+<body id="page-top" onload="checkAndLoadExistingPatients()">
 
   <!-- Page Wrapper -->
   <div id="wrapper">
 
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
 
+      <!-- Sidebar - Brand -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-text mx-3">Triagix</div>
+      </a>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0">
+
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item active">
+        <br>
+        <button class="btn btn-block btn-primary"  data-toggle="modal" data-target="#clinic_triage_modal">
+          <span>Ingresar paciente</span></button>
+      </li>
+
+      <hr class="sidebar-divider">
+
+      <li class="nav-item active">
+        <a class="nav-link"id="see_patients_btn" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <span >Pacientes</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded small_patient_container_onsidebar">
+    
+          </div>
+        </div>
+      </li>
+
+
+    </ul>
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
@@ -37,13 +69,16 @@
         <!-- Topbar -->
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-
+          <!-- Sidebar Toggle (Topbar) -->
+          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+            <i class="fa fa-bars"></i>
+          </button>
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link" href="admin.html">
-                <p>Volver</p>
+              <a class="nav-link" href="help.html">
+                <img src="./images/help.png" height="20px">
               </a>
             </li>
 
@@ -62,25 +97,32 @@
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
-        <div class="container-fluid">
+        <div class="container-fluid t-100">
 
           <!-- Page Heading -->
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h4 mb-0 text-gray-800">Paciente</h1>
+          <div class="">
+            <h1 class="text-center h1 mt-3 mb-0 text-primary font-weight-bolder">Pasedeguardia</h1>
+            <h3 class="text-center mt-2 font-weight-bold">¿Que es?</h5>
           </div>
 
             <!-- Content Row -->
-            <div class="row">
+            <div class="row mt-4">
+              <h5 class="px-2 text-center font-weight-bold">Es una herramienta gratuita que ayuda a los médicos residentes a realizar sus controles durante la guardia.</h5>
+            </div>
 
-              <!-- Area Chart -->
-
-
-                <img src="./images/Online Doctor-rafiki.png" id="main_image" class="mx-auto">
-
-   
-
-              <!--widgets here-->
-
+          <div class="row mt-3">
+            <p class="text-primary text-center mx-2">Todos los controles de tus pacientes en un sólo lugar, olvidate de los papelitos!</p>
+          </div>
+          <br>
+        
+          <div class="row mt-3 mx-auto">
+            <div class="col text-center">
+              <img src="./images/balance.png" height="80px" class="text-center mb-3">
+              <p class="text-center mx-1 text-gray-500">Calcula el balance hidrico de manera simple y rápida</p>
+            </div>
+            <div class="col text-center">
+              <img src="./images/arm.png" height="80px" class="text-center mb-3">
+              <p class="text-center mx-1 text-gray-500">Calculá la TAM automáticamente!</p>
             </div>
           </div>
 
@@ -104,78 +146,12 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
   
     <!--MODALS-->
 
-    <!--Clinic triage modal-->
-    <!-- Modal -->
-    <div class="modal fade" id="clinic_triage_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-          <div class="modal-header">
-          <h5 class="modal-title text-primary" id="exampleModalCenterTitle">Ingresar paciente</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-          </button>
-          </div>
-          <div class="modal-body">
-              <p>Identificación</p>
-              <input type="text" placeholder="Identificación" id="patient_name" class="form-control">
-              <br>
-              <p>Edad</p>
-              <input type="number" placeholder="Edad" id="patient_age" class="form-control">
-              <br>
-              <p>Cama</p>
-              <input type="text" placeholder="Cama" id="patient_bed" class="form-control">
-          </div>
-          <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-              <button type="button" class="btn btn-primary" id="create_patient_btn">Continuar</button>
-          </div>
-      </div>
-      </div>
-  </div>
 
-  <!--Controles modal-->
-  <div class="modal fade" id="controles_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-        <h5 class="modal-title text-primary" id="exampleModalCenterTitle">Elegir control</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        </div>
-        <div class="modal-body">
-          <button class="btn btn-block btn-primary add_control_hemodinamico_btn">Hemodinamico</button>
-          <button class="btn btn-block btn-primary add_control_balance_btn">Balance</button>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary" id="create_patient_btn">Continuar</button>
-        </div>
-    </div>
-    </div>
-  </div>
+
+
 
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
