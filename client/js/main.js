@@ -48,9 +48,18 @@ $("body").on("click", "#see_patients_btn", function(){
 
     if($(this).attr("class") === "nav-link collapsed" || $(this).attr("class") === "nav-link"  ){
         patientList.forEach(element=>{
+            /*
             $(".small_patient_container_onsidebar").append(`
                 <a class="collapse-item active display_patient_button sidebarToggleTop" data-toggle="collapse" data-target="#collapseTwo" id="${element.info.id}">${element.info.bed} ${element.info.name}</a>
-            `)
+            `)*/
+
+            $(".small_patient_container_onsidebar").append(`
+            <div class="form-row">
+                <a class="collapse-item active text-danger delete_patient" id="${element.info.id}">x</a>
+                <a class="collapse-item active display_patient_button sidebarToggleTop" data-toggle="collapse" data-target="#collapseTwo" id="${element.info.id}">${element.info.bed} ${element.info.name}</a>
+            </div>
+            
+        `)
         })
     }
 
@@ -201,6 +210,12 @@ $("body").on("click", ".add_control_hemodinamico_btn", function(){
         updateStoredPatientById(id, foundPatient);
         $(".controles_here").empty();
         renderControlesFromPatientId(id);
+
+        //scroll to div
+        setTimeout(() => {
+            document.getElementById(newcontrol.date).scrollIntoView();  
+        }, 500);
+       
     }
 
 })
@@ -821,3 +836,39 @@ $("body").on("click", ".change_bed", function(){
     $(this).text(newbed);
 
 })
+
+$("body").on("click", ".delete_patient", function(){
+
+    let id = $(this).attr("id");
+
+    let delete_patient = confirm("Borrar paciente?")
+
+    console.log(delete_patient);
+
+    if(delete_patient === true){
+      
+        removePatientById(id);
+        $("#"+id).parent().remove();
+      
+    } else {}
+
+})
+
+function removePatientById(id){
+    let patientList = getStoredPatients();
+    let index = false;
+
+    for(let i = 0; i < patientList.length; i++){
+        if(patientList[i].info.id === id){
+            index = i;
+        } else {}
+    }
+
+    if(index = false){
+        console.log("cannot find patient to delete")
+    } else {
+        console.log("delete patient");
+        patientList.splice(index, 1);
+        localStorage.setItem("patients", JSON.stringify(patientList));
+    }
+}
