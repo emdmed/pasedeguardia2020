@@ -830,18 +830,10 @@ $("body").on("click", ".change_bed", function(){
         
     } else {
         paciente.info.bed = newbed;
-
         console.log(paciente);
-    
         updateStoredPatientById(id, paciente);
-    
         $(this).text(newbed);
     }
-
-
-
-
-
 })
 
 $("body").on("click", ".delete_patient", function(){

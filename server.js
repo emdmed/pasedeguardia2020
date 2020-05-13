@@ -20,3 +20,7 @@ app.get("/", function(req, res){
     res.sendFile(__dirname + "/client/admin.html");
 })
 
+app.get("/comofunciona", function(req, res){
+    res.sendFile(__dirname + "/client/help.html");
+})
+
