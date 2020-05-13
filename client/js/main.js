@@ -192,6 +192,7 @@ $("body").on("click", ".show_controles_modal", function(){
 
     $("#controles_modal").find(".add_control_hemodinamico_btn").attr("id", id);
     $("#controles_modal").find(".add_control_balance_btn").attr("id", id);
+    $("#controles_modal").find(".add_control_hgt_btn").attr("id", id);
 })
 
 $("body").on("click", ".add_control_hemodinamico_btn", function(){
@@ -220,11 +221,38 @@ $("body").on("click", ".add_control_hemodinamico_btn", function(){
 
 })
 
+$("body").on("click", ".add_control_hgt_btn", function(){
+
+    $("#controles_modal").modal("hide");
+
+    let id = $(this).attr("id");
+
+    let foundPatient = findPatientById(id);
+
+    if(foundPatient === false){
+        alert("error on finding patient");
+    } else {
+        let newcontrol = createControlHgt();
+        foundPatient.controls.push(newcontrol);
+        updateStoredPatientById(id, foundPatient);
+        $(".controles_here").empty();
+        renderControlesFromPatientId(id);
+
+        //scroll to div
+        setTimeout(() => {
+            document.getElementById(newcontrol.date).scrollIntoView();  
+        }, 500);
+       
+    }
+
+})
+
 function renderControlesFromPatientId(id){
     let patientList = getStoredPatients();
     let found = findPatientById(id);
     
     let balancerendered = false;
+    let hgtrendered = false;
 
     if(!found){
 
@@ -325,12 +353,52 @@ function renderControlesFromPatientId(id){
     
                 balancerendered = true
     
+            } else if (found.controls[i].type === "hgt"){
+                let sum = +found.controls[i].d.correccion + +found.controls[i].a.correccion + +found.controls[i].m.correccion + +found.controls[i].c.correccion;
+                $(".controles_here").append(`
+                    <hr>
+                    <div class="row w-100 mt-2 mx-auto control_hgt_row" id="${found.controls[i].date}">
+                        <div class="card mx-auto p-1 w-100">
+                            <div class="card-body p-1 text-center">
+                                <div class="container-fluid">
+                                    <div class="row mb-2">
+                                        <h5 class="mx-auto">HGT</h5>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <h6 class="font-weight-bold">D</h6>
+                                            <p class="text-primary mb-0" id="${found.info.id}">${found.controls[i].d.hgt}</p>
+                                            <p class="text-danger" id="${found.info.id}">${found.controls[i].d.correccion}</p>
+                                        </div>
+                                        <div class="col">
+                                            <h6 class="font-weight-bold">A</h6>
+                                            <p class="text-primary mb-0" id="${found.info.id}">${found.controls[i].a.hgt}</p>
+                                            <p class="text-danger" id="${found.info.id}">${found.controls[i].a.correccion}</p>
+                                        </div>
+                                        <div class="col">
+                                            <h6 class="font-weight-bold">M</h6>
+                                            <p class="text-primary mb-0" id="${found.info.id}">${found.controls[i].m.hgt}</p>
+                                            <p class="text-danger" id="${found.info.id}">${found.controls[i].m.correccion}</p>
+                                        </div>
+                                        <div class="col">
+                                            <h6 class="font-weight-bold">C</h6>
+                                            <p class="text-primary mb-0" id="${found.info.id}">${found.controls[i].c.hgt}</p>
+                                            <p class="text-danger" id="${found.info.id}">${found.controls[i].c.correccion}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-0 mt-0">
+                                        <p class="mx-auto">Total: <span class="text-danger">${sum}</span></p>
+                                    </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                `)
+
+                hgtrendered = true;
             }
         }
     }
-
-
- 
 }
 
 
@@ -799,6 +867,31 @@ function createControlBalance(){
     return newcontrol;
 }
 
+function createControlHgt(){
+    let newcontrol = {
+        type: "hgt",
+        date: new Date().getTime(),
+        d: {
+            hgt: 0,
+            correccion: 0
+        },
+        a: {
+            hgt: 0,
+            correccion: 0
+        },
+        m: {
+            hgt: 0,
+            correccion: 0
+        },
+        c: {
+            hgt: 0,
+            correccion: 0
+        }
+    }
+
+    return newcontrol;
+}
+
 //continue update control
 
 function updateStoredPatientById(id, newpatient){
@@ -871,3 +964,4 @@ function removePatientById(id){
         localStorage.setItem("patients", JSON.stringify(patientList));
     }
 }
+
