@@ -362,32 +362,35 @@ function renderControlesFromPatientId(id){
                             <div class="card-body p-1 text-center">
                                 <div class="container-fluid">
                                     <div class="row mb-2">
-                                        <h5 class="mx-auto">HGT</h5>
+                                        <h5 class="mx-auto text-primary">HGT</h5>
                                     </div>
                                     <div class="row">
                                         <div class="col">
                                             <h6 class="font-weight-bold">D</h6>
-                                            <p class="text-primary mb-0" id="${found.info.id}">${found.controls[i].d.hgt}</p>
-                                            <p class="text-danger" id="${found.info.id}">${found.controls[i].d.correccion}</p>
+                                            <p id="${found.info.id}" class="text-primary mb-0 hgtD">${found.controls[i].d.hgt}</p>
+                                            <p id="${found.info.id}" class="text-danger correccionD">${found.controls[i].d.correccion}</p>
                                         </div>
                                         <div class="col">
                                             <h6 class="font-weight-bold">A</h6>
-                                            <p class="text-primary mb-0" id="${found.info.id}">${found.controls[i].a.hgt}</p>
-                                            <p class="text-danger" id="${found.info.id}">${found.controls[i].a.correccion}</p>
+                                            <p id="${found.info.id}" class="text-primary mb-0 hgtA">${found.controls[i].a.hgt}</p>
+                                            <p id="${found.info.id}" class="text-danger correccionA">${found.controls[i].a.correccion}</p>
                                         </div>
                                         <div class="col">
                                             <h6 class="font-weight-bold">M</h6>
-                                            <p class="text-primary mb-0" id="${found.info.id}">${found.controls[i].m.hgt}</p>
-                                            <p class="text-danger" id="${found.info.id}">${found.controls[i].m.correccion}</p>
+                                            <p id="${found.info.id}" class="text-primary mb-0 hgtM">${found.controls[i].m.hgt}</p>
+                                            <p id="${found.info.id}" class="text-danger correccionM">${found.controls[i].m.correccion}</p>
                                         </div>
                                         <div class="col">
                                             <h6 class="font-weight-bold">C</h6>
-                                            <p class="text-primary mb-0" id="${found.info.id}">${found.controls[i].c.hgt}</p>
-                                            <p class="text-danger" id="${found.info.id}">${found.controls[i].c.correccion}</p>
+                                            <p id="${found.info.id}" class="text-primary mb-0 hgtC">${found.controls[i].c.hgt}</p>
+                                            <p id="${found.info.id}" class="text-danger correccionC">${found.controls[i].c.correccion}</p>
                                         </div>
                                     </div>
+                                    <div class="row mx-auto">
+                                    <p class="text-danger mb-0 mx-auto">Correciones</p>
+                                    </div>
                                     <div class="row mb-0 mt-0">
-                                        <p class="mx-auto">Total: <span class="text-danger">${sum}</span></p>
+                                        <p class="mx-auto">Total: <span class="text-danger correccionSum">${sum}</span></p>
                                     </div>
                             </div>
                             </div>
@@ -836,6 +839,32 @@ function findBalanceControlIndexInPatient(patient){
     return found;
 }
 
+function findHgtControlInPatient(patient){
+    let hgt = false;
+    for(let i = 0; i < patient.controls.length; i++){
+        if(patient.controls[i].type === "hgt"){
+            hgt =  patient.controls[i];
+        } else {
+      
+        }
+    }
+
+    return hgt;
+}
+
+function findHgtControlIndexInPatient(patient){
+    let found = false;
+    for(let i = 0; i < patient.controls.length; i++){
+        if(patient.controls[i].type === "hgt"){
+            found =  i;
+        } else {
+            
+        }
+    }
+
+    return found;
+}
+
 function createControlHemodinamico(){
     let newcontrol = {
         type: "hemodinamico",
@@ -891,6 +920,199 @@ function createControlHgt(){
 
     return newcontrol;
 }
+
+$("body").on("click", ".hgtD", function(){
+
+    let id = $(this).attr("id");
+
+    let patient = findPatientById(id);
+    console.log(patient);
+
+    let hgtindex = findHgtControlIndexInPatient(patient);
+
+    let foundhgtControl = findHgtControlInPatient(patient);
+
+    let newvalue = prompt("Introduzca el valor del HGT");
+
+
+    console.log(foundhgtControl);
+    foundhgtControl.d.hgt = newvalue;
+
+    patient.controls[hgtindex] = foundhgtControl;
+    updateStoredPatientById(id, patient);
+
+    $(this).text(newvalue);
+
+})
+
+$("body").on("click", ".hgtA", function(){
+
+    let id = $(this).attr("id");
+
+    let patient = findPatientById(id);
+    console.log(patient);
+
+    let hgtindex = findHgtControlIndexInPatient(patient);
+
+    let foundhgtControl = findHgtControlInPatient(patient);
+
+    let newvalue = prompt("Introduzca el valor del HGT");
+
+
+    console.log(foundhgtControl);
+    foundhgtControl.a.hgt = newvalue;
+
+    patient.controls[hgtindex] = foundhgtControl;
+    updateStoredPatientById(id, patient);
+
+    $(this).text(newvalue);
+
+})
+
+$("body").on("click", ".hgtM", function(){
+
+    let id = $(this).attr("id");
+
+    let patient = findPatientById(id);
+    console.log(patient);
+
+    let hgtindex = findHgtControlIndexInPatient(patient);
+
+    let foundhgtControl = findHgtControlInPatient(patient);
+
+    let newvalue = prompt("Introduzca el valor del HGT");
+
+
+    console.log(foundhgtControl);
+    foundhgtControl.m.hgt = newvalue;
+
+    patient.controls[hgtindex] = foundhgtControl;
+    updateStoredPatientById(id, patient);
+
+    $(this).text(newvalue);
+
+})
+
+$("body").on("click", ".hgtC", function(){
+
+    let id = $(this).attr("id");
+
+    let patient = findPatientById(id);
+    console.log(patient);
+
+    let hgtindex = findHgtControlIndexInPatient(patient);
+
+    let foundhgtControl = findHgtControlInPatient(patient);
+
+    let newvalue = prompt("Introduzca el valor del HGT");
+
+
+    console.log(foundhgtControl);
+    foundhgtControl.c.hgt = newvalue;
+
+    patient.controls[hgtindex] = foundhgtControl;
+    updateStoredPatientById(id, patient);
+
+    $(this).text(newvalue);
+
+})
+
+$("body").on("click", ".correccionD", function(){
+
+    let id = $(this).attr("id");
+
+    let patient = findPatientById(id);
+    console.log(patient);
+
+    let hgtindex = findHgtControlIndexInPatient(patient);
+
+    let foundhgtControl = findHgtControlInPatient(patient);
+
+    let newvalue = prompt("Introduzca el valor de la corrección");
+
+
+    console.log(foundhgtControl);
+    foundhgtControl.d.correccion = newvalue;
+
+    patient.controls[hgtindex] = foundhgtControl;
+    updateStoredPatientById(id, patient);
+
+    $(this).text(newvalue);
+    $(".correccionSum").text(+foundhgtControl.d.correccion + +foundhgtControl.a.correccion + +foundhgtControl.m.correccion + +foundhgtControl.c.correccion)
+
+})
+
+$("body").on("click", ".correccionA", function(){
+
+    let id = $(this).attr("id");
+
+    let patient = findPatientById(id);
+    console.log(patient);
+
+    let hgtindex = findHgtControlIndexInPatient(patient);
+
+    let foundhgtControl = findHgtControlInPatient(patient);
+
+    let newvalue = prompt("Introduzca el valor de la corrección");
+
+
+    console.log(foundhgtControl);
+    foundhgtControl.a.correccion = newvalue;
+
+    patient.controls[hgtindex] = foundhgtControl;
+    updateStoredPatientById(id, patient);
+
+    $(this).text(newvalue);
+    $(".correccionSum").text(+foundhgtControl.d.correccion + +foundhgtControl.a.correccion + +foundhgtControl.m.correccion + +foundhgtControl.c.correccion)
+})
+
+$("body").on("click", ".correccionM", function(){
+
+    let id = $(this).attr("id");
+
+    let patient = findPatientById(id);
+    console.log(patient);
+
+    let hgtindex = findHgtControlIndexInPatient(patient);
+
+    let foundhgtControl = findHgtControlInPatient(patient);
+
+    let newvalue = prompt("Introduzca el valor de la corrección");
+
+
+    console.log(foundhgtControl);
+    foundhgtControl.m.correccion = newvalue;
+
+    patient.controls[hgtindex] = foundhgtControl;
+    updateStoredPatientById(id, patient);
+
+    $(this).text(newvalue);
+    $(".correccionSum").text(+foundhgtControl.d.correccion + +foundhgtControl.a.correccion + +foundhgtControl.m.correccion + +foundhgtControl.c.correccion)
+})
+
+$("body").on("click", ".correccionC", function(){
+
+    let id = $(this).attr("id");
+
+    let patient = findPatientById(id);
+    console.log(patient);
+
+    let hgtindex = findHgtControlIndexInPatient(patient);
+
+    let foundhgtControl = findHgtControlInPatient(patient);
+
+    let newvalue = prompt("Introduzca el valor de la corrección");
+
+
+    console.log(foundhgtControl);
+    foundhgtControl.c.correccion = newvalue;
+
+    patient.controls[hgtindex] = foundhgtControl;
+    updateStoredPatientById(id, patient);
+
+    $(this).text(newvalue);
+    $(".correccionSum").text(+foundhgtControl.d.correccion + +foundhgtControl.a.correccion + +foundhgtControl.m.correccion + +foundhgtControl.c.correccion)
+})
 
 //continue update control
 
