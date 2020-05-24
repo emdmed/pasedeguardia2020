@@ -295,7 +295,7 @@ function renderControlesFromPatientId(id){
     
                 $(".controles_here").append(`
                     <hr>
-                    <div class="row w-100 mt-2 mx-auto control_hemodinamico_row" id="${found.controls[i].date}">
+                    <div class="row w-100 mt-2 mx-auto control_hemodinamico_row entrance-scale" id="${found.controls[i].date}">
                         <div class="card mx-auto p-1">
                             <div class="card-body p-1 text-center">
                                 <h5>Hemodinamico</h5>
@@ -365,7 +365,7 @@ function renderControlesFromPatientId(id){
                 let sum = +found.controls[i].d.correccion + +found.controls[i].a.correccion + +found.controls[i].m.correccion + +found.controls[i].c.correccion;
                 $(".controles_here").append(`
                     <hr>
-                    <div class="row w-100 mt-2 mx-auto control_hgt_row" id="${found.controls[i].date}">
+                    <div class="row w-100 mt-2 mx-auto control_hgt_row entrance-scale" id="${found.controls[i].date}">
                         <div class="card mx-auto p-1 w-100">
                             <div class="card-body p-1 text-center">
                                 <div class="container-fluid">
