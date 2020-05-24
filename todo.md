@@ -1,0 +1,1 @@
+avoid creating and storing a second balance or hgt control if there is already one

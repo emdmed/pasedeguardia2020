@@ -229,20 +229,28 @@ $("body").on("click", ".add_control_hgt_btn", function(){
 
     let foundPatient = findPatientById(id);
 
-    if(foundPatient === false){
-        alert("error on finding patient");
-    } else {
-        let newcontrol = createControlHgt();
-        foundPatient.controls.push(newcontrol);
-        updateStoredPatientById(id, foundPatient);
-        $(".controles_here").empty();
-        renderControlesFromPatientId(id);
+    let HgtContolCreated = findHgtControlInPatient(foundPatient);
+    console.log("HGT found: ", HgtContolCreated);
 
-        //scroll to div
-        setTimeout(() => {
-            document.getElementById(newcontrol.date).scrollIntoView();  
-        }, 500);
-       
+    if(HgtContolCreated === false){
+
+        if(foundPatient === false){
+            alert("error on finding patient");
+        } else {
+            let newcontrol = createControlHgt();
+            foundPatient.controls.push(newcontrol);
+            updateStoredPatientById(id, foundPatient);
+            $(".controles_here").empty();
+            renderControlesFromPatientId(id);
+    
+            //scroll to div
+            setTimeout(() => {
+                document.getElementById(newcontrol.date).scrollIntoView();  
+            }, 500);
+           
+        }
+    } else {
+
     }
 
 })
@@ -768,16 +776,20 @@ $("body").on("click", ".add_control_balance_btn", function(){
     let foundPatient = findPatientById(id);
     console.log("found ", foundPatient);
 
-    if(foundPatient === false){
-        alert("error on finding patient");
-    } else {
-        let newcontrol = createControlBalance();
-        foundPatient.controls.push(newcontrol);
-        updateStoredPatientById(id, foundPatient);
-        $(".controles_here").empty();
-        renderControlesFromPatientId(id);
-    }
+    let isThereBalanceControl = findBalanceInPatient(foundPatient);
 
+    if(isThereBalanceControl === false){
+        if(foundPatient === false){
+            alert("error on finding patient");
+        } else {
+            let newcontrol = createControlBalance();
+            foundPatient.controls.push(newcontrol);
+            updateStoredPatientById(id, foundPatient);
+            $(".controles_here").empty();
+            renderControlesFromPatientId(id);
+        }
+    
+    } else {}
 
 })
 
