@@ -54,7 +54,13 @@
       <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
-
+      <li class="nav-item active">
+ 
+        <button class="btn btn-block btn-primary"  data-toggle="modal" data-target="#clinic_triage_modal">
+          <img src="./images/add.png" height="30px">
+          <span>Ingresar paciente</span></button>
+      </li>
+      <br>
       <li class="nav-item active">
         <a class="nav-link"id="see_patients_btn" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           <img src="./images/patient.png" height="40px">
@@ -67,16 +73,8 @@
         </div>
       </li>
 
-      <li class="nav-item active">
-        <br>
-        <button class="btn btn-block btn-primary"  data-toggle="modal" data-target="#clinic_triage_modal">
-          <img src="./images/add.png" height="30px">
-          <span>Ingresar paciente</span></button>
-      </li>
 
-      <hr class="sidebar-divider">
 
-     
 
 
     </ul>
@@ -168,8 +166,8 @@
                                 <div class="container-fluid">
         
                                     <div class="row">
-                                        <h5 class="my-auto">Controles</h5>
-                                        <button class="btn btn-sm btn-outline-primary ml-4 show_controles_modal" data-toggle="modal" data-target="#controles_modal" id="${patient.info.id}">+</div>
+                                        <h5 class="my-auto show_controles_modal" data-toggle="modal" data-target="#controles_modal" id="${patient.info.id}">Controles</h5>
+                                        <!--<button class="btn btn-sm btn-outline-primary ml-4 show_controles_modal" data-toggle="modal" data-target="#controles_modal" id="${patient.info.id}">+</div>-->
                                     </div>
                                     <hr>
                                     <div class="controles_here" id="${patient.info.id}">
