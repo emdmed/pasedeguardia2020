@@ -125,7 +125,7 @@ $("body").on("click", ".display_patient_button", function(){
 function renderPatientCard(patient){
     $("#patient_cards_here").append(`
     
-        <div class="container-fluid">
+        <div class="container-fluid entrance-scale">
             <div class="row my-auto mx-auto">
    
                 <h3 class="text-dark my-auto mx-auto change_bed" id="${patient.info.id}">${patient.info.bed}</h3>
@@ -318,7 +318,7 @@ function renderControlesFromPatientId(id){
     
                 $(".controles_here").append(`
                     <hr>
-                    <div class="row w-100 mt-2 mx-auto control_hemodinamico_row" id="${found.controls[i].date}">
+                    <div class="row w-100 mt-2 mx-auto control_hemodinamico_row entrance-scale" id="${found.controls[i].date}">
                         <div class="card mx-auto p-1 m-2 w-100">
                             <div class="card-body w-100 p-1 text-center">
                                 <h5>Balance</h5>
