@@ -540,7 +540,10 @@ $("body").on("click", ".plus_vo_btn", function(){
 
     //frontend
     $(".ivo").text(foundBalanceControl.ivo*200 + " ml")
-
+    $(".ivo").attr("class", "mx-auto ivo animateText1")
+    setTimeout(() => {
+        $(".ivo").attr("class", "mx-auto ivo")
+    }, 200);
 })
 
 $("body").on("click", ".minus_vo_btn", function(){
@@ -561,6 +564,10 @@ $("body").on("click", ".minus_vo_btn", function(){
 
     //frontend
     $(".ivo").text(foundBalanceControl.ivo*200 + " ml")
+    $(".ivo").attr("class", "mx-auto ivo animateText1")
+    setTimeout(() => {
+        $(".ivo").attr("class", "mx-auto ivo")
+    }, 200);
 
 })
 
@@ -583,7 +590,10 @@ $("body").on("click", ".plus_ev_btn", function(){
 
     //frontend
     $(".iev").text(foundBalanceControl.iev*250 + " ml")
-
+    $(".iev").attr("class", "mx-auto iev animateText1")
+    setTimeout(() => {
+        $(".iev").attr("class", "mx-auto iev")
+    }, 200);
 })
 
 $("body").on("click", ".minus_ev_btn", function(){
@@ -604,7 +614,10 @@ $("body").on("click", ".minus_ev_btn", function(){
 
     //frontend
     $(".iev").text(foundBalanceControl.iev*250 + " ml")
-
+    $(".iev").attr("class", "mx-auto iev animateText1")
+    setTimeout(() => {
+        $(".iev").attr("class", "mx-auto iev")
+    }, 200);
 })
 
 $("body").on("click", ".plus_cat_btn", function(){
@@ -625,7 +638,10 @@ $("body").on("click", ".plus_cat_btn", function(){
 
     //frontend
     $(".catarsis").text(foundBalanceControl.cat)
-
+    $(".catarsis").attr("class", "mx-auto catarsis animateText1")
+    setTimeout(() => {
+        $(".catarsis").attr("class", "mx-auto catarsis")
+    }, 200);
 })
 
 $("body").on("click", ".minus_cat_btn", function(){
@@ -646,7 +662,10 @@ $("body").on("click", ".minus_cat_btn", function(){
 
     //frontend
     $(".catarsis").text(foundBalanceControl.cat)
-
+    $(".catarsis").attr("class", "mx-auto catarsis animateText1")
+    setTimeout(() => {
+        $(".catarsis").attr("class", "mx-auto catarsis")
+    }, 200);
 })
 
 $("body").on("click", ".plus_diu_btn", function(){
@@ -667,7 +686,10 @@ $("body").on("click", ".plus_diu_btn", function(){
 
     //frontend
     $(".diuresis").text(foundBalanceControl.diu*100 + " ml")
-
+    $(".diuresis").attr("class", "mx-auto diuresis animateText1")
+    setTimeout(() => {
+        $(".diuresis").attr("class", "mx-auto diuresis")
+    }, 200);
 })
 
 $("body").on("click", ".minus_diu_btn", function(){
@@ -688,7 +710,10 @@ $("body").on("click", ".minus_diu_btn", function(){
 
     //frontend
     $(".diuresis").text(foundBalanceControl.diu*100 + " ml")
-
+    $(".diuresis").attr("class", "mx-auto diuresis animateText1")
+    setTimeout(() => {
+        $(".diuresis").attr("class", "mx-auto diuresis")
+    }, 200);
 })
 
 $("body").on("click", ".peso", function(){
@@ -696,6 +721,10 @@ $("body").on("click", ".peso", function(){
     let peso = prompt("Ingrese el peso del paciente");
 
     $(this).text(peso + " kg");
+    $(this).attr("class", "mx-auto peso animateText1")
+    setTimeout(() => {
+        $(".peso").attr("class", "mx-auto peso")
+    }, 200);
 
     //localstorage
     let id = $(this).attr("id");
