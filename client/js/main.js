@@ -163,7 +163,7 @@ function renderPatientCard(patient){
                 <div class="card w-100">
                     <div class="card-body">
 
-                        <div class="container-fluid">
+                        <div class="container-fluid p-1">
 
                             <div class="row">
                                 <h5 class="my-auto show_controles_modal"  data-toggle="modal" data-target="#controles_modal" id="${patient.info.id}">Controles</h5>
@@ -747,7 +747,7 @@ $("body").on("click", ".set_mi", function(){
 
     if($(this).attr("class") === "card-header bg-white set_mi closed"){
 
-        $(".mi_textarea").show();
+        $(".mi_textarea").show("fast");
         $(this).attr("class", "card-header bg-white set_mi opened")
         $(".mi_p_text").hide();
 
@@ -756,7 +756,7 @@ $("body").on("click", ".set_mi", function(){
 
         let text = $(".mi_textarea").val();
         $(".mi_textarea").hide();
-        $(".mi_p_text").show();
+        $(".mi_p_text").show("fast");
         $(".mi_p_text").text(text);
 
         $(this).attr("class", "card-header bg-white set_mi closed")
@@ -775,7 +775,7 @@ $("body").on("click", ".set_atc", function(){
 
     if($(this).attr("class") === "card-header bg-white set_atc closed"){
 
-        $(".atc_textarea").show();
+        $(".atc_textarea").show("fast");
         $(this).attr("class", "card-header bg-white set_atc opened")
         $(".atc_p_text").hide();
 
@@ -784,7 +784,7 @@ $("body").on("click", ".set_atc", function(){
 
         let text = $(".atc_textarea").val();
         $(".atc_textarea").hide();
-        $(".atc_p_text").show();
+        $(".atc_p_text").show("fast");
         $(".atc_p_text").text(text);
 
         $(this).attr("class", "card-header bg-white set_atc closed")
@@ -1189,6 +1189,10 @@ $("body").on("click", ".change_bed", function(){
         console.log(paciente);
         updateStoredPatientById(id, paciente);
         $(this).text(newbed);
+        $(this).attr("class", "text-dark my-auto mx-auto change_bed animateText1")
+        setTimeout(() => {
+            $(".change_bed").attr("class", "text-dark my-auto mx-auto change_bed")
+        }, 200);
     }
 })
 
