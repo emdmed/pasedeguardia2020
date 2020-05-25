@@ -974,6 +974,10 @@ $("body").on("click", ".hgtD", function(){
     let foundhgtControl = findHgtControlInPatient(patient);
 
     let newvalue = prompt("Introduzca el valor del HGT");
+    console.log("newvalue ", newvalue);
+    if(newvalue === null){
+        newvalue = 0;
+    }
 
 
     console.log(foundhgtControl);
@@ -998,7 +1002,9 @@ $("body").on("click", ".hgtA", function(){
     let foundhgtControl = findHgtControlInPatient(patient);
 
     let newvalue = prompt("Introduzca el valor del HGT");
-
+    if(newvalue === null){
+        newvalue = 0;
+    }
 
     console.log(foundhgtControl);
     foundhgtControl.a.hgt = newvalue;
@@ -1022,7 +1028,9 @@ $("body").on("click", ".hgtM", function(){
     let foundhgtControl = findHgtControlInPatient(patient);
 
     let newvalue = prompt("Introduzca el valor del HGT");
-
+    if(newvalue === null){
+        newvalue = 0;
+    }
 
     console.log(foundhgtControl);
     foundhgtControl.m.hgt = newvalue;
@@ -1046,7 +1054,9 @@ $("body").on("click", ".hgtC", function(){
     let foundhgtControl = findHgtControlInPatient(patient);
 
     let newvalue = prompt("Introduzca el valor del HGT");
-
+    if(newvalue === null){
+        newvalue = 0;
+    }
 
     console.log(foundhgtControl);
     foundhgtControl.c.hgt = newvalue;
@@ -1070,7 +1080,9 @@ $("body").on("click", ".correccionD", function(){
     let foundhgtControl = findHgtControlInPatient(patient);
 
     let newvalue = prompt("Introduzca el valor de la corrección");
-
+    if(newvalue === null){
+        newvalue = 0;
+    }
 
     console.log(foundhgtControl);
     foundhgtControl.d.correccion = newvalue;
@@ -1095,7 +1107,9 @@ $("body").on("click", ".correccionA", function(){
     let foundhgtControl = findHgtControlInPatient(patient);
 
     let newvalue = prompt("Introduzca el valor de la corrección");
-
+    if(newvalue === null){
+        newvalue = 0;
+    }
 
     console.log(foundhgtControl);
     foundhgtControl.a.correccion = newvalue;
@@ -1119,7 +1133,9 @@ $("body").on("click", ".correccionM", function(){
     let foundhgtControl = findHgtControlInPatient(patient);
 
     let newvalue = prompt("Introduzca el valor de la corrección");
-
+    if(newvalue === null){
+        newvalue = 0;
+    }
 
     console.log(foundhgtControl);
     foundhgtControl.m.correccion = newvalue;
@@ -1143,7 +1159,9 @@ $("body").on("click", ".correccionC", function(){
     let foundhgtControl = findHgtControlInPatient(patient);
 
     let newvalue = prompt("Introduzca el valor de la corrección");
-
+    if(newvalue === null){
+        newvalue = 0;
+    }
 
     console.log(foundhgtControl);
     foundhgtControl.c.correccion = newvalue;
