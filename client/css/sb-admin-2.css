@@ -11102,3 +11102,14 @@ a{
     opacity: 1;
   }
 }
+
+
+.patient-title{
+  border-width: 1px;
+  border-style: solid;
+  border-color: white;
+  border-radius: 50px;
+  padding:15px;
+  margin: 0px;
+  background-color: white;
+}

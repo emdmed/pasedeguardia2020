@@ -126,7 +126,7 @@ function renderPatientCard(patient){
     $("#patient_cards_here").append(`
     
         <div class="container-fluid entrance-scale">
-            <div class="row my-auto mx-auto">
+            <div class="row my-auto mx-auto patient-title">
    
                 <h3 class="text-dark my-auto mx-auto change_bed" id="${patient.info.id}">${patient.info.bed}</h3>
                 <img class="mr-2 my-auto mx-auto change_bed" src="./images/hospital-bed.png" height="30px">
