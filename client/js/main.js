@@ -166,8 +166,12 @@ function renderPatientCard(patient){
                         <div class="container-fluid p-1">
 
                             <div class="row">
-                                <h5 class="my-auto show_controles_modal"  data-toggle="modal" data-target="#controles_modal" id="${patient.info.id}">Controles</h5>
-                                
+                                <div class="col">
+                                    <h5 class="my-auto " id="${patient.info.id}">Controles</h5>
+                                </div>
+                                <div class="col">
+                                <button class="ml-4 btn btn-outline-primary show_controles_modal float-right"  data-toggle="modal" data-target="#controles_modal" id="${patient.info.id}">+</button>
+                                </div>
                             </div>
 
                             <div class="controles_here" id="${patient.info.id}">
