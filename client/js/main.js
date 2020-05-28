@@ -167,7 +167,7 @@ function renderPatientCard(patient){
 
                             <div class="row">
                                 <div class="col">
-                                    <h5 class="my-auto " id="${patient.info.id}">Controles</h5>
+                                    <h5 class="my-auto toggle-controles show" id="${patient.info.id}">Controles</h5>
                                 </div>
                                 <div class="col">
                                 <button class="ml-4 btn btn-outline-primary show_controles_modal float-right"  data-toggle="modal" data-target="#controles_modal" id="${patient.info.id}">+</button>
@@ -183,6 +183,31 @@ function renderPatientCard(patient){
                     </div>
                 </div>
             </div>
+
+            <div class="row mt-2">
+            <div class="card w-100">
+                <div class="card-body">
+
+                    <div class="container-fluid p-1">
+
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="my-auto toggle-controles show" id="${patient.info.id}">Pendientes</h5>
+                            </div>
+                            <div class="col">
+                            <button class="ml-4 btn btn-outline-primary float-right" id="${patient.info.id}">+</button>
+                            </div>
+                        </div>
+
+                        <div class="pendientes_here" id="${patient.info.id}">
+                        
+                        </div>
+
+                    </div>
+            
+                </div>
+            </div>
+        </div>
 
         </div>
 
@@ -1254,3 +1279,15 @@ function removePatientById(id){
     }
 }
 
+//toggle controles window
+$("body").on("click", ".toggle-controles", function(){
+
+    if($(this).attr("class") === "my-auto toggle-controles show"){
+        $(this).attr("class", "my-auto toggle-controles hidden");
+        $(".controles_here").hide("fast");
+    } else if ($(this).attr("class") === "my-auto toggle-controles hidden"){
+        $(this).attr("class", "my-auto toggle-controles show");
+        $(".controles_here").show("fast");
+    }
+
+})
