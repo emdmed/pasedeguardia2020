@@ -466,7 +466,7 @@ function renderPendientesFromPatientId(id){
                     <div class="card-body p-1">
                         <div class="row my-auto">
                             <div class="col text-center">
-                            <h5 id="${found.info.id}">${found.pendientes[i].title}</h5>
+                            <h5 class="pending_title" id="${found.info.id}">${found.pendientes[i].title}</h5>
                             </div>
                             <div class="col text-center">
                             <button class="btn ${priorityColor} btn-sm priority">Prioridad</button>
@@ -475,7 +475,7 @@ function renderPendientesFromPatientId(id){
 
                         <div class="row my-auto pt-3">     
                             <div class="col">
-                            <p class="my-auto text-center">${found.pendientes[i].alertTime}</p>     
+                            <p class="my-auto text-center pending_title" id="${found.info.id}">${found.pendientes[i].alertTime}</p>     
                             </div>                                  
                             <div class="col text-center mx-auto">
                             <div class="btn-group mx-auto">
@@ -1374,6 +1374,17 @@ $("body").on("click", ".add_pendiente", function(){
     updateStoredPatientById(id, foundPatient);
     $(".pendientes_here").empty();
     renderPendientesFromPatientId(id);
+
+})
+
+
+$("body").on("click", ".pending_title", function(){
+
+    let id = $(this).attr("id");
+
+    let foundPatient = findPatientById(id);
+    //continuar
+
 
 })
 
