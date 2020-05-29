@@ -463,10 +463,10 @@ function renderPendientesFromPatientId(id){
             $(".pendientes_here").append(`
                 <hr>
                 <div class="card p-1 border-primary">
-                    <div class="card-body p-1">
+                    <div class="card-body p-1" id="${found.info.id}">
                         <div class="row my-auto">
                             <div class="col text-center">
-                            <h5 class="pending_title" id="${found.info.id}">${found.pendientes[i].title}</h5>
+                            <h5 class="pending_title" id="${i}">${found.pendientes[i].title}</h5>
                             </div>
                             <div class="col text-center">
                             <button class="btn ${priorityColor} btn-sm priority">Prioridad</button>
@@ -474,8 +474,9 @@ function renderPendientesFromPatientId(id){
                         </div>
 
                         <div class="row my-auto pt-3">     
-                            <div class="col">
-                            <p class="my-auto text-center pending_title" id="${found.info.id}">${found.pendientes[i].alertTime}</p>     
+                            <div class="col text-center">
+                                <p class="my-auto text-center pending_title" id="${found.info.id}">${found.pendientes[i].alertTime}</p>  
+                                <input type="time">   
                             </div>                                  
                             <div class="col text-center mx-auto">
                             <div class="btn-group mx-auto">
@@ -1380,11 +1381,40 @@ $("body").on("click", ".add_pendiente", function(){
 
 $("body").on("click", ".pending_title", function(){
 
-    let id = $(this).attr("id");
-
+    let index = $(this).attr("id");
+    let id = $(".pendientes_here").attr("id");
     let foundPatient = findPatientById(id);
-    //continuar
+    let title = prompt("Nombre del pendiente");
+    console.log(title)
 
+    if(title === null){
+
+    } else {
+        foundPatient.pendientes[index].title = title
+        $(this).text(title);
+    }
+
+    updateStoredPatientById(id, foundPatient);
+
+})
+
+
+$("body").on("click", ".pending_time", function(){
+
+    let index = $(this).attr("id");
+    let id = $(".pendientes_here").attr("id");
+    let foundPatient = findPatientById(id);
+    let title = prompt("Hora del pendiente");
+    console.log(title)
+
+    if(title === null){
+
+    } else {
+        foundPatient.pendientes[index].time = title
+        $(this).text(title);
+    }
+
+    updateStoredPatientById(id, foundPatient);
 
 })
 
