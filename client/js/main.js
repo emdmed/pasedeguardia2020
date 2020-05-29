@@ -80,7 +80,8 @@ function createPatientModel(name, age, bed){
         },
         atc: [],
         mi: "",
-        controls: []
+        controls: [],
+        pendientes: []
     }
 
     return newpatient;
@@ -109,7 +110,7 @@ $("body").on("click", ".display_patient_button", function(){
     } else {
         $("#patient_cards_here").empty();
         renderPatientCard(found);
-
+    
         $("#collapseTwo").collapse();
     }
 
@@ -195,7 +196,7 @@ function renderPatientCard(patient){
                                 <h5 class="my-auto toggle-controles show" id="${patient.info.id}">Pendientes</h5>
                             </div>
                             <div class="col">
-                            <button class="ml-4 btn btn-outline-primary float-right" id="${patient.info.id}">+</button>
+                            <button class="ml-4 btn btn-outline-primary float-right add_pendiente" id="${patient.info.id}">+</button>
                             </div>
                         </div>
 
@@ -214,6 +215,7 @@ function renderPatientCard(patient){
     `)
 
     renderControlesFromPatientId(patient.info.id);
+    renderPendientesFromPatientId(patient.info.id)
 }
 
 $("body").on("click", ".show_controles_modal", function(){
@@ -437,6 +439,62 @@ function renderControlesFromPatientId(id){
 
                 hgtrendered = true;
             }
+        }
+    }
+}
+
+function renderPendientesFromPatientId(id){
+    let found = findPatientById(id);
+    if(!found){
+
+    } else {
+        for(let i = 0; i <found.pendientes.length; i++){
+
+            let priorityColor;
+
+            if(found.pendientes[i].priority === "green"){
+                priorityColor = "btn-success"
+            } else if(found.pendientes[i].priority === "yellow"){
+                priorityColor = "btn-warning"
+            } else if(found.pendientes[i].priority === "red"){
+                priorityColor = "btn-danger"
+            }
+
+            $(".pendientes_here").append(`
+                <hr>
+                <div class="card p-1 border-primary">
+                    <div class="card-body p-1">
+                        <div class="row my-auto">
+                            <div class="col text-center">
+                            <h5 id="${found.info.id}">${found.pendientes[i].title}</h5>
+                            </div>
+                            <div class="col text-center">
+                            <button class="btn ${priorityColor} btn-sm priority">Prioridad</button>
+                            </div>                         
+                        </div>
+
+                        <div class="row my-auto pt-3">     
+                            <div class="col">
+                            <p class="my-auto text-center">${found.pendientes[i].alertTime}</p>     
+                            </div>                                  
+                            <div class="col text-center mx-auto">
+                            <div class="btn-group mx-auto">
+                                <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                5 min antes
+                                </button>
+                                <div class="dropdown-menu">
+                                <a class="dropdown-item">5 min antes</a>
+                                <a class="dropdown-item">30 min antes</a>
+                                <a class="dropdown-item">1 hora antes</a>
+
+                                </div>
+                            </div>
+                            </div>                                                         
+                        </div>
+                    </div>
+                </div>
+
+            `)
         }
     }
 }
@@ -991,6 +1049,19 @@ function createControlHgt(){
     return newcontrol;
 }
 
+function createPendiente(){
+    let newpendiente = {
+        alertTime: "Hora de aviso",
+        priority: "green",
+        Alert: 5,
+        title: "Pendiente"
+    }
+
+    return newpendiente;
+}
+
+
+
 $("body").on("click", ".hgtD", function(){
 
     let id = $(this).attr("id");
@@ -1293,6 +1364,20 @@ $("body").on("click", ".toggle-controles", function(){
 })
 
 
+$("body").on("click", ".add_pendiente", function(){
+
+    let id = $(this).attr("id");
+    let foundPatient = findPatientById(id);
+
+    let newPendiente = createPendiente();
+    foundPatient.pendientes.push(newPendiente);
+    updateStoredPatientById(id, foundPatient);
+    $(".pendientes_here").empty();
+    renderPendientesFromPatientId(id);
+
+})
+
+//notifications
 if (!window.Notification) {
     console.log('Browser does not support notifications.');
 } else {
@@ -1344,4 +1429,3 @@ function notifyMe() {
     }
 }
 
-notifyMe();
