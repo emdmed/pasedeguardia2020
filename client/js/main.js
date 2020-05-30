@@ -1532,3 +1532,5 @@ function notifyMe(title) {
     }
 }
 
+Notification.requestPermission();
+
