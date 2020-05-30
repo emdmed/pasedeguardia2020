@@ -1,6 +1,36 @@
 let STOREDPATIENTS
 moment.locale('es')
 
+let pendienteAlarms = [];
+
+setInterval(() => {
+    let nowDate = new Date();
+    let nowHs = nowDate.getHours();
+    let nowMins = nowDate.getMinutes();
+    console.log(nowHs, nowMins);
+    pendienteAlarms.forEach(element=>{
+        console.log(element.initTime)
+        console.log(parseInt(element.initTime.hs), nowHs, parseInt(element.initTime.min), nowMins)
+        if(parseInt(element.initTime.hs) === nowHs && parseInt(element.initTime.min) === nowMins){
+            console.log("Notificated")
+            notifyMe(element.title);
+            //remove alarm from array
+            pendienteAlarms = removeAlarm(element.alarmID, pendienteAlarms);
+            console.log("pendiente alarms", pendienteAlarms);
+        }
+
+    })
+
+    //continuar
+    
+}, 60000);
+
+
+function removeAlarm(alarmID, pendienteAlarms){
+    let array = pendienteAlarms.filter(function(a){return a.alarmID !== alarmID})
+    return array
+}
+
 function checkAndLoadExistingPatients(){
     let storage = getStoredPatients();
 
@@ -475,21 +505,15 @@ function renderPendientesFromPatientId(id){
 
                         <div class="row my-auto pt-3">     
                             <div class="col text-center">
-                                <p class="my-auto text-center pending_title" id="${found.info.id}">${found.pendientes[i].alertTime}</p>  
-                                <input type="time">   
+                             
                             </div>                                  
                             <div class="col text-center mx-auto">
-                            <div class="btn-group mx-auto">
-                                <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                5 min antes
-                                </button>
-                                <div class="dropdown-menu">
-                                <a class="dropdown-item">5 min antes</a>
-                                <a class="dropdown-item">30 min antes</a>
-                                <a class="dropdown-item">1 hora antes</a>
-
-                                </div>
-                            </div>
+                            <p class="mb-0">Hora</p>
+                            <div class="btn-group">
+                                <button class="btn btn-sm btn-primary hs_btn" id="${i}">${found.pendientes[i].alertTime.hs}</button>
+                                <button class="btn btn-sm btn-primary">:</button>
+                                <button class="btn btn-sm btn-primary min_btn" id="${i}">${found.pendientes[i].alertTime.min}</button>
+                            </div>  
                             </div>                                                         
                         </div>
                     </div>
@@ -1052,7 +1076,10 @@ function createControlHgt(){
 
 function createPendiente(){
     let newpendiente = {
-        alertTime: "Hora de aviso",
+        alertTime: {
+            hs: 00,
+            min: 00
+        },
         priority: "green",
         Alert: 5,
         title: "Pendiente"
@@ -1274,7 +1301,7 @@ $("body").on("click", ".correccionC", function(){
     $(".correccionSum").text(+foundhgtControl.d.correccion + +foundhgtControl.a.correccion + +foundhgtControl.m.correccion + +foundhgtControl.c.correccion)
 })
 
-//continue update control
+
 
 function updateStoredPatientById(id, newpatient){
     let patientList = getStoredPatients();
@@ -1394,29 +1421,66 @@ $("body").on("click", ".pending_title", function(){
         $(this).text(title);
     }
 
-    updateStoredPatientById(id, foundPatient);
+    
 
 })
 
 
-$("body").on("click", ".pending_time", function(){
+$("body").on("click", ".hs_btn", function(){
 
     let index = $(this).attr("id");
     let id = $(".pendientes_here").attr("id");
     let foundPatient = findPatientById(id);
-    let title = prompt("Hora del pendiente");
-    console.log(title)
+    let title = prompt("Hora");
 
     if(title === null){
 
     } else {
-        foundPatient.pendientes[index].time = title
+        foundPatient.pendientes[index].alertTime.hs = title;
+        updateStoredPatientById(id, foundPatient)
         $(this).text(title);
+        pendienteAlarms = removeAlarm(index+id, pendienteAlarms);
+        createPendienteAlarm(id, index, foundPatient.pendientes[index].alertTime)
     }
 
-    updateStoredPatientById(id, foundPatient);
-
 })
+
+$("body").on("click", ".min_btn", function(){
+
+    let index = $(this).attr("id");
+    let id = $(".pendientes_here").attr("id");
+    let foundPatient = findPatientById(id);
+    let title = prompt("Hora");
+    let pendigTitle = $(".pendientes_here").find("#"+index + ".pending_title").text();
+
+    console.log("pending title ", pendigTitle)
+
+    if(title === null){
+
+    } else {
+        foundPatient.pendientes[index].alertTime.min = title;
+        updateStoredPatientById(id, foundPatient)
+        $(this).text(title);
+        pendienteAlarms = removeAlarm(index+id, pendienteAlarms);
+        createPendienteAlarm(id, index, foundPatient.pendientes[index].alertTime, pendigTitle)
+    }
+})
+
+function createPendienteAlarm(id, index, time, title){
+
+    let alarmObject = {
+        alarmID: index+id,
+        id: id,
+        index: index,
+        initTime: time,
+        title: title
+    }
+
+    console.log("alarm created: ", alarmObject)
+    pendienteAlarms.push(alarmObject);
+}
+
+
 
 //notifications
 if (!window.Notification) {
@@ -1440,25 +1504,23 @@ if (!window.Notification) {
 }
 
 //notifications
-function notifyMe() {
+function notifyMe(title) {
     if (!window.Notification) {
         console.log('Browser does not support notifications.');
     } else {
         // check if permission is already granted
         if (Notification.permission === 'granted') {
             // show notification here
-            var notify = new Notification('Hi there!', {
-                body: 'How are you doing?',
-                icon: 'https://bit.ly/2DYqRrh',
+            var notify = new Notification('Pendiente!', {
+                body: title
             });
         } else {
             // request permission from user
             Notification.requestPermission().then(function (p) {
                 if (p === 'granted') {
                     // show notification here
-                    var notify = new Notification('Hi there!', {
-                        body: 'How are you doing?',
-                        icon: 'https://bit.ly/2DYqRrh',
+                    var notify = new Notification('Pendiente!', {
+                        body: title
                     });
                 } else {
                     console.log('User blocked notifications.');
