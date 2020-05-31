@@ -26,9 +26,9 @@ setInterval(() => {
 }, 60000);
 
 setTimeout(() => {
-    var notify = new Notification('Pendiente!', {
-        body: "hola"
-    });
+    ServiceWorkerRegistration.showNotification("hola", {
+        body: "holiii"
+    }) 
 }, 5000);
 
 function notifyMe(title) {
