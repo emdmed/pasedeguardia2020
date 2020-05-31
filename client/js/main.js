@@ -1,9 +1,20 @@
 let STOREDPATIENTS
-let worker = new Worker("./js/service-worker.js")
+
 moment.locale('es')
 
-let pendienteAlarms = [];
+//workers
 
+let worker = new Worker("./js/service-worker.js")
+
+worker.onmessage = e => {
+  const message = e.data;
+  console.log(`[From Worker]: ${message}`);
+};
+
+//worker.postMessage("Marco!");
+
+let pendienteAlarms = [];
+/*
 setInterval(() => {
     let nowDate = new Date();
     let nowHs = nowDate.getHours();
@@ -24,7 +35,9 @@ setInterval(() => {
 
     //continuar
     
-}, 60000);
+}, 60000);*/
+
+
 
 
 function removeAlarm(alarmID, pendienteAlarms){
@@ -1444,7 +1457,7 @@ $("body").on("click", ".hs_btn", function(){
         createPendienteAlarm(id, index, foundPatient.pendientes[index].alertTime)
 
         //save alarm array into localstorage for worker access
-        localStorage.setItem("alarms", JSON.stringify(pendienteAlarms));
+        worker.postMessage(JSON.stringify(pendienteAlarms));
     }
 
 })
@@ -1467,8 +1480,9 @@ $("body").on("click", ".min_btn", function(){
         $(this).text(title);
         pendienteAlarms = removeAlarm(index+id, pendienteAlarms);
         createPendienteAlarm(id, index, foundPatient.pendientes[index].alertTime, pendigTitle)
+
         //save alarm array into localstorage for worker access
-        localStorage.setItem("alarms", JSON.stringify(pendienteAlarms));
+        worker.postMessage(JSON.stringify(pendienteAlarms));
     }
 })
 
@@ -1544,5 +1558,8 @@ Notification.requestPermission();
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
       navigator.serviceWorker.register('./js/service-worker.js');
+      serviceWorkerRegistration.update();
     });
+
+
   }
