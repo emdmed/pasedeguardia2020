@@ -1,4 +1,3 @@
-console.log("worker loaded");
 
 let pendienteAlarms = [];
 
@@ -36,17 +35,17 @@ function notifyMe(title) {
     // check if permission is already granted
     if (Notification.permission === 'granted') {
         // show notification here
-        var notify = new Notification('Pendiente!', {
+        ServiceWorkerRegistration.showNotification("Pendiente!", {
             body: title
-        });
+        })
     } else {
         // request permission from user
         Notification.requestPermission().then(function (p) {
             if (p === 'granted') {
                 // show notification here
-                var notify = new Notification('Pendiente!', {
+                ServiceWorkerRegistration.showNotification("Pendiente!", {
                     body: title
-                });
+                })
             } else {
                 console.log('User blocked notifications.');
             }
@@ -54,8 +53,9 @@ function notifyMe(title) {
             console.error(err);
         });
     }
-
 }
+
+//ServiceWorkerRegistration.showNotification()
 
 function removeAlarm(alarmID, pendienteAlarms){
     let array = pendienteAlarms.filter(function(a){return a.alarmID !== alarmID})
