@@ -7,11 +7,9 @@ moment.locale('es')
 let worker = new Worker("./js/service-worker.js")
 
 worker.onmessage = e => {
-  const message = e.data;
-  console.log(`[From Worker]: ${message}`);
+    const message = e.data;
+    notifyMe(message);
 };
-
-//worker.postMessage("Marco!");
 
 let pendienteAlarms = [];
 /*

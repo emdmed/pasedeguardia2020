@@ -1,6 +1,11 @@
 
 let pendienteAlarms = [];
 
+onmessage = e => {
+    const message = JSON.parse(e.data);
+    console.log(message);
+    pendienteAlarms.push(message[0]);
+};
 
 setInterval(() => {
     let nowDate = new Date();
@@ -13,7 +18,7 @@ setInterval(() => {
         //console.log(parseInt(element.initTime.hs), nowHs, parseInt(element.initTime.min), nowMins)
         if(parseInt(element.initTime.hs) === nowHs && parseInt(element.initTime.min) === nowMins){
             console.log("Notificated")
-            showNotification(element.title)
+            postMessage(element.title)
             //remove alarm from array
             pendienteAlarms = removeAlarm(element.alarmID, pendienteAlarms);
             console.log("pendiente alarms", pendienteAlarms);
@@ -24,12 +29,6 @@ setInterval(() => {
     //continuar
     
 }, 60000);
-
-setTimeout(() => {
-    ServiceWorkerRegistration.showNotification("hola", {
-        body: "holiii"
-    }) 
-}, 5000);
 
 function notifyMe(title) {
 
@@ -60,9 +59,9 @@ function showNotification(title) {
     Notification.requestPermission(function(result) {
       if (result === 'granted') {
         navigator.serviceWorker.ready.then(function(registration) {
-            var notify = new Notification('Pendiente!', {
-                body: title
-            });
+          self.registration.showNotification('Pendiente!', {
+            body: title
+          });
         });
       }
     });
