@@ -1528,26 +1528,13 @@ function notifyMe(title) {
         console.log('Browser does not support notifications.');
     } else {
         // check if permission is already granted
-        if (Notification.permission === 'granted') {
-            // show notification here
-            registration.showNotification('Pendiente!', {
-                body: title
-            });
-        } else {
-            // request permission from user
-            Notification.requestPermission().then(function (p) {
-                if (p === 'granted') {
-                    // show notification here
-                    registration.showNotification('Pendiente!', {
-                        body: title
-                    });
-                } else {
-                    console.log('User blocked notifications.');
-                }
-            }).catch(function (err) {
-                console.error(err);
-            });
-        }
+        Notification.requestPermission(function(result) {
+            if (result === 'granted') {
+              navigator.serviceWorker.ready.then(function(registration) {
+                registration.showNotification('Notification with ServiceWorker');
+              });
+            }
+          });
     }
 }
 
