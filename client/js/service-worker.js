@@ -25,6 +25,10 @@ setInterval(() => {
     
 }, 60000);
 
+setTimeout(() => {
+    showNotification("hola")
+}, 5000);
+
 function notifyMe(title) {
 
     // check if permission is already granted
