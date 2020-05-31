@@ -26,7 +26,9 @@ setInterval(() => {
 }, 60000);
 
 setTimeout(() => {
-    showNotification("hola")
+    var notify = new Notification('Pendiente!', {
+        body: "hola"
+    });
 }, 5000);
 
 function notifyMe(title) {
