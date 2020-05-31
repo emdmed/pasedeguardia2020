@@ -35,17 +35,17 @@ function notifyMe(title) {
     // check if permission is already granted
     if (Notification.permission === 'granted') {
         // show notification here
-        ServiceWorkerRegistration.showNotification("Pendiente!", {
+        var notify = new Notification('Pendiente!', {
             body: title
-        })
+        });
     } else {
         // request permission from user
         Notification.requestPermission().then(function (p) {
             if (p === 'granted') {
                 // show notification here
-                ServiceWorkerRegistration.showNotification("Pendiente!", {
+                var notify = new Notification('Pendiente!', {
                     body: title
-                })
+                });
             } else {
                 console.log('User blocked notifications.');
             }
