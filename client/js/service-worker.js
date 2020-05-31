@@ -18,7 +18,7 @@ setInterval(() => {
         //console.log(parseInt(element.initTime.hs), nowHs, parseInt(element.initTime.min), nowMins)
         if(parseInt(element.initTime.hs) === nowHs && parseInt(element.initTime.min) === nowMins){
             console.log("Notificated")
-            showNotification(element.title)
+            notifyMe(element.title)
             //remove alarm from array
             pendienteAlarms = removeAlarm(element.alarmID, pendienteAlarms);
             console.log("pendiente alarms", pendienteAlarms);
