@@ -1531,7 +1531,9 @@ function notifyMe(title) {
         Notification.requestPermission(function(result) {
             if (result === 'granted') {
               navigator.serviceWorker.ready.then(function(registration) {
-                registration.showNotification('Notification with ServiceWorker');
+                registration.showNotification("pendientes!", {
+                    body: title
+                });
               });
             }
           });
