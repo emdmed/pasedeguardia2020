@@ -18,7 +18,7 @@ setInterval(() => {
         //console.log(parseInt(element.initTime.hs), nowHs, parseInt(element.initTime.min), nowMins)
         if(parseInt(element.initTime.hs) === nowHs && parseInt(element.initTime.min) === nowMins){
             console.log("Notificated")
-            notifyMe(element.title)
+            showNotification(element.title)
             //remove alarm from array
             pendienteAlarms = removeAlarm(element.alarmID, pendienteAlarms);
             console.log("pendiente alarms", pendienteAlarms);
@@ -59,13 +59,13 @@ function showNotification(title) {
     Notification.requestPermission(function(result) {
       if (result === 'granted') {
         navigator.serviceWorker.ready.then(function(registration) {
-          registration.showNotification('Vibration Sample', {
+          self.registration.showNotification('Pendiente!', {
             body: title
           });
         });
       }
     });
-  }
+}
 
 //ServiceWorkerRegistration.showNotification()
 
