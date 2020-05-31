@@ -1530,7 +1530,7 @@ function notifyMe(title) {
         // check if permission is already granted
         if (Notification.permission === 'granted') {
             // show notification here
-            var notify = new Notification('Pendiente!', {
+            registration.showNotification('Pendiente!', {
                 body: title
             });
         } else {
@@ -1538,7 +1538,7 @@ function notifyMe(title) {
             Notification.requestPermission().then(function (p) {
                 if (p === 'granted') {
                     // show notification here
-                    var notify = new Notification('Pendiente!', {
+                    registration.showNotification('Pendiente!', {
                         body: title
                     });
                 } else {
