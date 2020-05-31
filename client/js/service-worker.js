@@ -1,11 +1,6 @@
 
 let pendienteAlarms = [];
 
-onmessage = e => {
-    const message = JSON.parse(e.data);
-    console.log(message);
-    pendienteAlarms.push(message[0]);
-};
 
 setInterval(() => {
     let nowDate = new Date();
@@ -59,9 +54,9 @@ function showNotification(title) {
     Notification.requestPermission(function(result) {
       if (result === 'granted') {
         navigator.serviceWorker.ready.then(function(registration) {
-          self.registration.showNotification('Pendiente!', {
-            body: title
-          });
+            var notify = new Notification('Pendiente!', {
+                body: title
+            });
         });
       }
     });
