@@ -1433,6 +1433,7 @@ $("body").on("click", ".pending_title", function(){
     } else {
         foundPatient.pendientes[index].title = title
         $(this).text(title);
+        updateStoredPatientById(id, foundPatient);
     }
 
     
@@ -1558,8 +1559,5 @@ Notification.requestPermission();
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
       navigator.serviceWorker.register('./js/service-worker.js');
-      serviceWorkerRegistration.update();
     });
-
-
-  }
+}
