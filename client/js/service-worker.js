@@ -44,7 +44,7 @@ setTimeout(() => {
 
 
 function notifyMe(title) {
-    registration.showNotification("pendientes!", {
+    ServiceWorkerRegistration.showNotification("pendientes!", {
         body: title
     });
 }
