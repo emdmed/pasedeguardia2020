@@ -36,6 +36,11 @@ setTimeout(() => {
     postMessage("hola")
 }, 6000);
 
+setTimeout(() => {
+    postMessage("hola")
+    notifyMe("hola")
+}, 8000);
+
 
 
 function notifyMe(title) {
