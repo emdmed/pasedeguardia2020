@@ -19,6 +19,8 @@ setInterval(() => {
         if(parseInt(element.initTime.hs) === nowHs && parseInt(element.initTime.min) === nowMins){
             console.log("Notificated")
             postMessage(element.title)
+
+            notifyMe("hola")
             //remove alarm from array
             pendienteAlarms = removeAlarm(element.alarmID, pendienteAlarms);
             console.log("pendiente alarms", pendienteAlarms);
@@ -31,27 +33,19 @@ setInterval(() => {
 }, 60000);
 
 function notifyMe(title) {
-
-    // check if permission is already granted
-    if (Notification.permission === 'granted') {
-        // show notification here
-        self.registration.showNotification("Pendiente!", {
-            body: title
-        })
+    if (!window.Notification) {
+        console.log('Browser does not support notifications.');
     } else {
-        // request permission from user
-        Notification.requestPermission().then(function (p) {
-            if (p === 'granted') {
-                // show notification here
-                self.registration.showNotification("Pendiente!", {
+        // check if permission is already granted
+        Notification.requestPermission(function(result) {
+            if (result === 'granted') {
+              navigator.serviceWorker.ready.then(function(registration) {
+                registration.showNotification("pendientes!", {
                     body: title
-                })
-            } else {
-                console.log('User blocked notifications.');
+                });
+              });
             }
-        }).catch(function (err) {
-            console.error(err);
-        });
+          });
     }
 }
 
