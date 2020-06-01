@@ -8,6 +8,7 @@ let worker = new Worker("./js/service-worker.js")
 
 worker.onmessage = e => {
     const message = e.data;
+    console.log("NOTIFICATION")
     notifyMe(message);
 };
 
