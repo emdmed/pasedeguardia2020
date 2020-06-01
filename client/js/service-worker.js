@@ -33,9 +33,6 @@ setInterval(() => {
 }, 60000);
 
 function notifyMe(title) {
-    if (!window.Notification) {
-        console.log('Browser does not support notifications.');
-    } else {
         // check if permission is already granted
         Notification.requestPermission(function(result) {
             if (result === 'granted') {
@@ -46,7 +43,7 @@ function notifyMe(title) {
               });
             }
           });
-    }
+ 
 }
 
 function showNotification(title) {
