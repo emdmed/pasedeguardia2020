@@ -9,7 +9,10 @@ let worker = new Worker("./js/service-worker.js")
 worker.onmessage = e => {
     const message = e.data;
     console.log("NOTIFICATION")
-    notifyMe(message);
+   
+    new Notification("hola", {
+        body: message
+    })
 };
 
 let pendienteAlarms = [];
@@ -1539,7 +1542,11 @@ function notifyMe() {
       });
 }
 
-Notification.requestPermission();
+Notification.requestPermission().then(function(permission) { 
+    console.log('permiss', permission)
+});
+
+
 
 //service worker
 if ('serviceWorker' in navigator) {

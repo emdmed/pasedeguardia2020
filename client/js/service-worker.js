@@ -3,7 +3,6 @@ let pendienteAlarms = [];
 
 onmessage = e => {
     const message = JSON.parse(e.data);
-    console.log(message);
     pendienteAlarms.push(message[0]);
 };
 
@@ -32,22 +31,21 @@ setInterval(() => {
     
 }, 60000);
 
+
+setTimeout(() => {
+    postMessage("hola")
+}, 6000);
+
+
+
 function notifyMe(title) {
-        // check if permission is already granted
-        Notification.requestPermission(function(result) {
-            if (result === 'granted') {
-              navigator.serviceWorker.ready.then(function(registration) {
-                registration.showNotification("pendientes!", {
-                    body: title
-                });
-              });
-            }
-          });
- 
+    registration.showNotification("pendientes!", {
+        body: title
+    });
 }
 
 function showNotification(title) {
-    Notification.requestPermission(function(result) {
+    self.requestPermission(function(result) {
       if (result === 'granted') {
         navigator.serviceWorker.ready.then(function(registration) {
           self.registration.showNotification('Pendiente!', {
