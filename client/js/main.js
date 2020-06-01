@@ -1526,6 +1526,10 @@ if (!window.Notification) {
 //notifications
 function notifyMe(title) {
 
+    let noti = new Notification("Pendiente!", {
+        body: title
+    })
+
     // check if permission is already granted
     Notification.requestPermission(function(result) {
         if (result === 'granted') {
@@ -1535,7 +1539,7 @@ function notifyMe(title) {
             });
             });
         }
-        });
+    });
 
 }
 
