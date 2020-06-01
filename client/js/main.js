@@ -1525,20 +1525,18 @@ if (!window.Notification) {
 
 //notifications
 function notifyMe(title) {
-    if (!window.Notification) {
-        console.log('Browser does not support notifications.');
-    } else {
-        // check if permission is already granted
-        Notification.requestPermission(function(result) {
-            if (result === 'granted') {
-              navigator.serviceWorker.ready.then(function(registration) {
-                registration.showNotification("pendientes!", {
-                    body: title
-                });
-              });
-            }
-          });
-    }
+
+    // check if permission is already granted
+    Notification.requestPermission(function(result) {
+        if (result === 'granted') {
+            navigator.serviceWorker.ready.then(function(registration) {
+            registration.showNotification("pendientes!", {
+                body: title
+            });
+            });
+        }
+        });
+
 }
 
 Notification.requestPermission();
