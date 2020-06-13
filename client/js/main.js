@@ -2,19 +2,6 @@ let STOREDPATIENTS
 
 moment.locale('es')
 
-//workers
-
-let worker = new Worker("./js/service-worker.js")
-
-worker.onmessage = e => {
-    const message = e.data;
-    console.log("NOTIFICATION")
-   
-    new Notification("hola", {
-        body: message
-    })
-};
-
 let pendienteAlarms = [];
 /*
 setInterval(() => {
@@ -1456,11 +1443,6 @@ $("body").on("click", ".hs_btn", function(){
         foundPatient.pendientes[index].alertTime.hs = title;
         updateStoredPatientById(id, foundPatient)
         $(this).text(title);
-        pendienteAlarms = removeAlarm(index+id, pendienteAlarms);
-        createPendienteAlarm(id, index, foundPatient.pendientes[index].alertTime)
-
-        //save alarm array into localstorage for worker access
-        worker.postMessage(JSON.stringify(pendienteAlarms));
     }
 
 })
@@ -1481,11 +1463,7 @@ $("body").on("click", ".min_btn", function(){
         foundPatient.pendientes[index].alertTime.min = title;
         updateStoredPatientById(id, foundPatient)
         $(this).text(title);
-        pendienteAlarms = removeAlarm(index+id, pendienteAlarms);
-        createPendienteAlarm(id, index, foundPatient.pendientes[index].alertTime, pendigTitle)
 
-        //save alarm array into localstorage for worker access
-        worker.postMessage(JSON.stringify(pendienteAlarms));
     }
 })
 
@@ -1503,54 +1481,3 @@ function createPendienteAlarm(id, index, time, title){
     pendienteAlarms.push(alarmObject);
 }
 
-
-
-//notifications
-if (!window.Notification) {
-    console.log('Browser does not support notifications.');
-} else {
-    // check if permission is already granted
-    if (Notification.permission === 'granted') {
-        // show notification here
-    } else {
-        // request permission from user
-        Notification.requestPermission().then(function(p) {
-           if(p === 'granted') {
-               // show notification here
-           } else {
-               console.log('User blocked notifications.');
-           }
-        }).catch(function(err) {
-            console.error(err);
-        });
-    }
-}
-
-//notifications
-function notifyMe() {
-    Notification.requestPermission(function(result) {
-        if (result === 'granted') {
-          navigator.serviceWorker.ready.then(function(registration) {
-            registration.showNotification('Vibration Sample', {
-              body: 'Buzz! Buzz!',
-              icon: '../images/touch/chrome-touch-icon-192x192.png',
-              vibrate: [200, 100, 200, 100, 200, 100, 200],
-              tag: 'vibration-sample'
-            });
-          });
-        }
-      });
-}
-
-Notification.requestPermission().then(function(permission) { 
-    console.log('permiss', permission)
-});
-
-
-
-//service worker
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-      navigator.serviceWorker.register('./js/service-worker.js');
-    });
-}
