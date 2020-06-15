@@ -159,17 +159,27 @@ $("body").on("click", ".display_patient_button", function(){
 function renderPatientCard(patient){
     $("#patient_cards_here").append(`
     
-        <div class="container-fluid entrance-scale">
-            <div class="row my-auto mx-auto patient-title">
+        <div class="container-fluid entrance-scale p-0">
+            <div class="row my-auto patient-title">
+
+                <div class="col mx-auto text-center">
+                    <p class="text-dark mb-0 mx-auto"><small>Cama</small></p>
+                    <h5 class="text-dark my-auto mx-auto change_bed" id="${patient.info.id}">${patient.info.bed}</h5>
+                </div>
+                <div class="col mx-auto text-center">
+                    <p class="text-dark mb-0 mx-auto"><small>Paciente</small></p>
+                    <h5 class=" text-dark my-auto mx-auto">${patient.info.name}</h5>
+                </div>
+                <div class="col mx-auto text-center">
+                    <p class="text-dark mb-0 mx-auto"><small>Edad</small></p>
+                    <h5 class=" text-dark my-auto mx-auto">${patient.info.age}</h5>
+                </div>
    
-                <h3 class="text-dark my-auto mx-auto change_bed" id="${patient.info.id}">${patient.info.bed}</h3>
-                <img class="mr-2 my-auto mx-auto change_bed" src="./images/hospital-bed.png" height="30px">
-                <h5 class=" text-dark my-auto mx-auto">${patient.info.name}</h4>
-                <h5 class=" text-dark my-auto mx-auto">${patient.info.age} años</h3>
             </div>
-            <hr>
+
+            <br>
             
-            <div class="row">
+            <div class="row mx-3">
                 <div class="card w-100">
                 <div class="card-header bg-white set_mi closed" id="${patient.info.id}">
                     <h5>Motivo de internación</h5>
@@ -181,7 +191,7 @@ function renderPatientCard(patient){
                 </div>
             </div>
 
-            <div class="row mt-2">
+            <div class="row mt-2 mx-3">
                 <div class="card w-100">
                     <div class="card-header bg-white set_atc closed" id="${patient.info.id}">
                         <h5>Antecedentes</h5>
@@ -193,7 +203,7 @@ function renderPatientCard(patient){
                 </div>
             </div>
 
-            <div class="row mt-2">
+            <div class="row mt-2 mx-3">
                 <div class="card w-100">
                     <div class="card-body">
 
@@ -218,7 +228,7 @@ function renderPatientCard(patient){
                 </div>
             </div>
 
-            <div class="row mt-2">
+            <div class="row mt-2 mx-3">
             <div class="card w-100">
                 <div class="card-body">
 
@@ -509,15 +519,7 @@ function renderPendientesFromPatientId(id){
                         <div class="row my-auto pt-3">     
                             <div class="col text-center">
                              
-                            </div>                                  
-                            <div class="col text-center mx-auto">
-                            <p class="mb-0">Hora</p>
-                            <div class="btn-group">
-                                <button class="btn btn-sm btn-primary hs_btn" id="${i}">${found.pendientes[i].alertTime.hs}</button>
-                                <button class="btn btn-sm btn-primary">:</button>
-                                <button class="btn btn-sm btn-primary min_btn" id="${i}">${found.pendientes[i].alertTime.min}</button>
-                            </div>  
-                            </div>                                                         
+                            </div>                                                                                         
                         </div>
                     </div>
                 </div>

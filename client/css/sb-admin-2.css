@@ -11018,7 +11018,7 @@ a{
 
 .entrance-scale{
   -webkit-animation: scale-in-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-	        animation: scale-in-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+          animation: scale-in-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
 
@@ -11108,8 +11108,10 @@ a{
   border-width: 1px;
   border-style: solid;
   border-color: white;
-  border-radius: 50px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
   padding:15px;
-  margin: 0px;
   background-color: white;
 }
