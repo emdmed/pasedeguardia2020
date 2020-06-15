@@ -163,16 +163,16 @@ function renderPatientCard(patient){
             <div class="row my-auto patient-title">
 
                 <div class="col mx-auto text-center">
-                    <p class="text-dark mb-0 mx-auto"><small>Cama</small></p>
-                    <h5 class="text-dark my-auto mx-auto change_bed" id="${patient.info.id}">${patient.info.bed}</h5>
+                    <p class="text-primary mb-0 mx-auto"><small>Cama</small></p>
+                    <h4 class="text-dark my-auto mx-auto change_bed" id="${patient.info.id}">${patient.info.bed}</h4>
                 </div>
                 <div class="col mx-auto text-center">
-                    <p class="text-dark mb-0 mx-auto"><small>Paciente</small></p>
-                    <h5 class=" text-dark my-auto mx-auto">${patient.info.name}</h5>
+                    <p class="text-primary mb-0 mx-auto"><small>Paciente</small></p>
+                    <h4 class=" text-dark my-auto mx-auto">${patient.info.name}</h4>
                 </div>
                 <div class="col mx-auto text-center">
-                    <p class="text-dark mb-0 mx-auto"><small>Edad</small></p>
-                    <h5 class=" text-dark my-auto mx-auto">${patient.info.age}</h5>
+                    <p class="text-primary mb-0 mx-auto"><small>Edad</small></p>
+                    <h4 class=" text-dark my-auto mx-auto">${patient.info.age}</h4>
                 </div>
    
             </div>
@@ -180,11 +180,11 @@ function renderPatientCard(patient){
             <br>
             
             <div class="row mx-3">
-                <div class="card w-100">
-                <div class="card-header bg-white set_mi closed" id="${patient.info.id}">
-                    <h5>Motivo de internación</h5>
+                <div class="card w-100 mi-border-card">
+                <div class="card-header bg-white set_mi closed mi-border-header" id="${patient.info.id}">
+                    <h5 class="text-primary">Motivo de internación</h5>
                 </div>
-                    <div class="card-body">
+                    <div class="card-body"">
                     <textarea class="mi_textarea form-control" style="display:none" placeholder="Escribir aqui..."></textarea>
                     <p class="mi_p_text">${patient.mi}</p>
                     </div>
@@ -194,7 +194,7 @@ function renderPatientCard(patient){
             <div class="row mt-2 mx-3">
                 <div class="card w-100">
                     <div class="card-header bg-white set_atc closed" id="${patient.info.id}">
-                        <h5>Antecedentes</h5>
+                        <h5 class="text-primary">Antecedentes</h5>
                     </div>
                     <div class="card-body">
                         <textarea class="atc_textarea form-control" style="display:none" placeholder="Escribir aqui..."></textarea>
@@ -210,11 +210,11 @@ function renderPatientCard(patient){
                         <div class="container-fluid p-1">
 
                             <div class="row">
-                                <div class="col">
-                                    <h5 class="my-auto toggle-controles show" id="${patient.info.id}">Controles</h5>
+                                <div class="col my-auto">
+                                    <h5 class="my-auto toggle-controles show text-primary" id="${patient.info.id}">Controles</h5>
                                 </div>
-                                <div class="col">
-                                <button class="ml-4 btn btn-outline-primary show_controles_modal float-right"  data-toggle="modal" data-target="#controles_modal" id="${patient.info.id}">+</button>
+                                <div class="col my-auto mx-auto">
+                                <button class="mx-auto ml-4 btn btn-primary btn-circle show_controles_modal float-right"  data-toggle="modal" data-target="#controles_modal" id="${patient.info.id}">+</button>
                                 </div>
                             </div>
 
@@ -235,11 +235,11 @@ function renderPatientCard(patient){
                     <div class="container-fluid p-1">
 
                         <div class="row">
-                            <div class="col">
-                                <h5 class="my-auto toggle-controles show" id="${patient.info.id}">Pendientes</h5>
+                            <div class="col my-auto">
+                                <h5 class="my-auto toggle-controles show text-primary" id="${patient.info.id}">Pendientes</h5>
                             </div>
-                            <div class="col">
-                            <button class="ml-4 btn btn-outline-primary float-right add_pendiente" id="${patient.info.id}">+</button>
+                            <div class="col my-auto">
+                            <button class="ml-4 btn btn-primary btn-circle float-right add_pendiente" id="${patient.info.id}">+</button>
                             </div>
                         </div>
 
@@ -372,7 +372,7 @@ function renderControlesFromPatientId(id){
                     <div class="row w-100 mt-2 mx-auto control_hemodinamico_row entrance-scale" id="${found.controls[i].date}">
                         <div class="card mx-auto p-1">
                             <div class="card-body p-1 text-center">
-                                <h5>Hemodinamico</h5>
+                                <h5 class="text-primary">Hemodinamico</h5>
                                 <p class="font-weight-lighter font-italic">${time}</p>
     
                                 <hr>
