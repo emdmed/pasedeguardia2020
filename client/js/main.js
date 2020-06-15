@@ -71,6 +71,8 @@ $("body").on("click", "#create_patient_btn", function(){
         //close modal
         $("#clinic_triage_modal").modal("hide");
 
+        renderPatientCards();
+
     }
 })
 
@@ -102,6 +104,8 @@ renderPatientCards();
 //render patient cards
 function renderPatientCards(){
     let patientList = JSON.parse(localStorage.getItem("patients"));
+
+    $("#patient_cards_here").empty();
 
     patientList.forEach(element=>{
         /*
