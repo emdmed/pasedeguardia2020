@@ -87,16 +87,61 @@ $("body").on("click", "#see_patients_btn", function(){
             `)*/
 
             $(".small_patient_container_onsidebar").append(`
-            <div class="form-row">
-                <a class="collapse-item active text-danger delete_patient" id="${element.info.id}">x</a>
-                <a class="collapse-item active display_patient_button sidebarToggleTop" data-toggle="collapse" data-target="#collapseTwo" id="${element.info.id}">${element.info.bed} ${element.info.name}</a>
-            </div>
-            
-        `)
+                <div class="form-row">
+                    <a class="collapse-item active text-danger delete_patient" id="${element.info.id}">x</a>
+                    <a class="collapse-item active display_patient_button sidebarToggleTop" data-toggle="collapse" data-target="#collapseTwo" id="${element.info.id}">${element.info.bed} ${element.info.name}</a>
+                </div>
+            `)
         })
     }
 
 })
+
+renderPatientCards();
+
+//render patient cards
+function renderPatientCards(){
+    let patientList = JSON.parse(localStorage.getItem("patients"));
+
+    patientList.forEach(element=>{
+        /*
+        $(".small_patient_container_onsidebar").append(`
+            <a class="collapse-item active display_patient_button sidebarToggleTop" data-toggle="collapse" data-target="#collapseTwo" id="${element.info.id}">${element.info.bed} ${element.info.name}</a>
+        `)*/
+    
+        $("#patient_cards_here").append(`
+            <div class="card bg-primary mt-2 mx-2 display_patient_button" id="${element.info.id}">
+                <div class="card-body p-2">
+                    <div class="container-fluid">
+                
+                        <div class="row">
+
+                            <div class="col text-center">
+                                <p class="mb-0 text-white"><small>Cama</small></p>
+                                <h4 class="text-white mb-0">${element.info.bed}</h4>
+                            </div>
+                            <div class="col text-center">
+                                <p class="mb-0 text-white"><small>Nombre</small></p>
+                                <h4 class="text-white mb-0">${element.info.name}</h4>
+                            </div>
+                            <div class="col text-center">
+                                <p class="mb-0 text-white"><small>Edad</small></p>
+                                <h4 class="text-white mb-0">${element.info.age}</h4>
+                            </div>
+                            <div class="col text-center my-auto">
+                                <p class="mb-0 text-white"><small>Pendientes</small></p>
+                                <p class="text-white mb-0">${element.pendientes.length}</p>
+                            </div>
+                            
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        `)
+    })
+}
+
 
 function getStoredPatients(){
     let stored = JSON.parse(localStorage.getItem("patients"))
@@ -147,13 +192,6 @@ $("body").on("click", ".display_patient_button", function(){
         $("#collapseTwo").collapse();
     }
 
-    //hide sidebar
-    $("body").toggleClass("sidebar-toggled");
-    $(".sidebar").toggleClass("toggled");
-    if ($(".sidebar").hasClass("toggled")) {
-      $('.sidebar .collapse').collapse('hide');
-    };
-
 })
 
 function renderPatientCard(patient){
@@ -181,7 +219,7 @@ function renderPatientCard(patient){
             
             <div class="row mx-3">
                 <div class="card w-100 mi-border-card">
-                <div class="card-header bg-white set_mi closed mi-border-header" id="${patient.info.id}">
+                <div class="card-header bg-white set_mi closed" id="${patient.info.id}">
                     <h5 class="text-primary">Motivo de internación</h5>
                 </div>
                     <div class="card-body"">

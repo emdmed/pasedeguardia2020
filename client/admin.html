@@ -43,11 +43,11 @@
   <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion " id="accordionSidebar">
+    <ul class="navbar-nav toggled bg-gradient-primary sidebar sidebar-dark accordion " id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="admin.html">
-        <p id="worker_title">PPP</p>
+        <p id="worker_title">PDG</p>
       </a>
 
       <!-- Divider -->
@@ -61,20 +61,6 @@
           <img src="./images/add.png" height="30px">
           <span>Ingresar paciente</span></button>
       </li>
-      <br>
-      <li class="nav-item active">
-        <a class="nav-link"id="see_patients_btn" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <img src="./images/patient.png" height="40px">
-          <span>Pacientes</span>
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded small_patient_container_onsidebar">
-    
-          </div>
-        </div>
-      </li>
-
-
 
     </ul>
     <!-- End of Sidebar -->
@@ -97,6 +83,12 @@
           <ul class="navbar-nav ml-auto">
 
             <li class="nav-item dropdown no-arrow mx-1">
+              <a class="nav-link text-primary" href="admin.html">
+                Pacientes
+              </a>
+            </li>
+
+            <li class="nav-item dropdown no-arrow mx-1">
               <a class="nav-link" href="help.html">
                 <img src="./images/help.png" height="20px">
               </a>
@@ -117,9 +109,7 @@
             <div class="row">
 
               <!-- Area Chart -->
-              <div class="col-xl-8 col-lg-7 pr-3 mx-auto" id="patient_cards_here" style="overflow-y: auto;">
-
-                <img src="./images/Online Doctor-rafiki.png" id="main_image" class="mx-auto">
+              <div class="col-xl-8 col-lg-7 pr-3 mx-auto" style="overflow-y: auto;"  id="patient_cards_here">
 
               </div>
               <div class="col-auto pl-3">
