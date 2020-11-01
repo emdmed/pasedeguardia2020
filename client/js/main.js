@@ -29,25 +29,25 @@ setInterval(() => {
 
 
 
-function removeAlarm(alarmID, pendienteAlarms){
-    let array = pendienteAlarms.filter(function(a){return a.alarmID !== alarmID})
+function removeAlarm(alarmID, pendienteAlarms) {
+    let array = pendienteAlarms.filter(function (a) { return a.alarmID !== alarmID })
     return array
 }
 
-function checkAndLoadExistingPatients(){
+function checkAndLoadExistingPatients() {
     let storage = getStoredPatients();
 
-    if(!storage){
+    if (!storage) {
         //agregar el primer paciente?
         console.log("No stored patients")
         STOREDPATIENTS = [];
-    }else{
+    } else {
         //render localstorage
         STOREDPATIENTS = storage;
     }
 }
 
-$("body").on("click", "#create_patient_btn", function(){
+$("body").on("click", "#create_patient_btn", function () {
 
 
     let name = $("#patient_name").val();
@@ -55,13 +55,13 @@ $("body").on("click", "#create_patient_btn", function(){
     let bed = $("#patient_bed").val();
     let newPatient = createPatientModel(name, age, bed);
     //validate name ONLY 3 LETTERS
-    if(name.length > 3){
+    if (name.length > 3) {
         alert("La identificación del paciente sólo puede tener hasta 3 letras")
     } else {
         newPatient.info.name = name;
         newPatient.info.age = age;
         newPatient.info.bed = bed;
-        newPatient.info.id = name+bed+age
+        newPatient.info.id = name + bed + age
 
         //push to soterdpatients array and save to localstorage
         STOREDPATIENTS.push(newPatient);
@@ -76,13 +76,13 @@ $("body").on("click", "#create_patient_btn", function(){
     }
 })
 
-$("body").on("click", "#see_patients_btn", function(){
+$("body").on("click", "#see_patients_btn", function () {
 
     let patientList = getStoredPatients();
     $(".small_patient_container_onsidebar").empty();
 
-    if($(this).attr("class") === "nav-link collapsed" || $(this).attr("class") === "nav-link"  ){
-        patientList.forEach(element=>{
+    if ($(this).attr("class") === "nav-link collapsed" || $(this).attr("class") === "nav-link") {
+        patientList.forEach(element => {
             /*
             $(".small_patient_container_onsidebar").append(`
                 <a class="collapse-item active display_patient_button sidebarToggleTop" data-toggle="collapse" data-target="#collapseTwo" id="${element.info.id}">${element.info.bed} ${element.info.name}</a>
@@ -102,17 +102,17 @@ $("body").on("click", "#see_patients_btn", function(){
 renderPatientCards();
 
 //render patient cards
-function renderPatientCards(){
+function renderPatientCards() {
     let patientList = JSON.parse(localStorage.getItem("patients"));
 
     $("#patient_cards_here").empty();
 
-    patientList.forEach(element=>{
+    patientList.forEach(element => {
         /*
         $(".small_patient_container_onsidebar").append(`
             <a class="collapse-item active display_patient_button sidebarToggleTop" data-toggle="collapse" data-target="#collapseTwo" id="${element.info.id}">${element.info.bed} ${element.info.name}</a>
         `)*/
-    
+
         $("#patient_cards_here").append(`
             <div class="card bg-primary mt-2 mx-2 display_patient_button" id="${element.info.id}">
                 <div class="card-body p-2">
@@ -147,18 +147,18 @@ function renderPatientCards(){
 }
 
 
-function getStoredPatients(){
+function getStoredPatients() {
     let stored = JSON.parse(localStorage.getItem("patients"))
     return stored;
 }
 
-function createPatientModel(name, age, bed){
-    let newpatient  = {
+function createPatientModel(name, age, bed) {
+    let newpatient = {
         info: {
             bed: bed,
             age: age,
             name: name,
-            id: name+bed+age
+            id: name + bed + age
         },
         atc: [],
         mi: "",
@@ -169,7 +169,7 @@ function createPatientModel(name, age, bed){
     return newpatient;
 }
 
-$("body").on("click", ".display_patient_button", function(){
+$("body").on("click", ".display_patient_button", function () {
 
     let id = $(this).attr("id");
     console.log(id);
@@ -178,8 +178,8 @@ $("body").on("click", ".display_patient_button", function(){
 
     let found = false;
 
-    patientList.forEach(element=>{
-        if(element.info.id === id){
+    patientList.forEach(element => {
+        if (element.info.id === id) {
             found = element;
         } else {
         }
@@ -187,18 +187,18 @@ $("body").on("click", ".display_patient_button", function(){
 
     console.log(found);
 
-    if(found === false){
+    if (found === false) {
 
     } else {
         $("#patient_cards_here").empty();
         renderPatientCard(found);
-    
+
         $("#collapseTwo").collapse();
     }
 
 })
 
-function renderPatientCard(patient){
+function renderPatientCard(patient) {
     $("#patient_cards_here").append(`
     
         <div class="container-fluid entrance-scale p-0">
@@ -303,7 +303,7 @@ function renderPatientCard(patient){
     renderPendientesFromPatientId(patient.info.id)
 }
 
-$("body").on("click", ".show_controles_modal", function(){
+$("body").on("click", ".show_controles_modal", function () {
     let id = $(this).attr("id");
 
     $("#controles_modal").find(".add_control_hemodinamico_btn").attr("id", id);
@@ -311,7 +311,7 @@ $("body").on("click", ".show_controles_modal", function(){
     $("#controles_modal").find(".add_control_hgt_btn").attr("id", id);
 })
 
-$("body").on("click", ".add_control_hemodinamico_btn", function(){
+$("body").on("click", ".add_control_hemodinamico_btn", function () {
 
     $("#controles_modal").modal("hide");
 
@@ -319,7 +319,7 @@ $("body").on("click", ".add_control_hemodinamico_btn", function(){
 
     let foundPatient = findPatientById(id);
 
-    if(foundPatient === false){
+    if (foundPatient === false) {
         alert("error on finding patient");
     } else {
         let newcontrol = createControlHemodinamico();
@@ -330,14 +330,14 @@ $("body").on("click", ".add_control_hemodinamico_btn", function(){
 
         //scroll to div
         setTimeout(() => {
-            document.getElementById(newcontrol.date).scrollIntoView();  
+            document.getElementById(newcontrol.date).scrollIntoView();
         }, 500);
-       
+
     }
 
 })
 
-$("body").on("click", ".add_control_hgt_btn", function(){
+$("body").on("click", ".add_control_hgt_btn", function () {
 
     $("#controles_modal").modal("hide");
 
@@ -348,9 +348,9 @@ $("body").on("click", ".add_control_hgt_btn", function(){
     let HgtContolCreated = findHgtControlInPatient(foundPatient);
     console.log("HGT found: ", HgtContolCreated);
 
-    if(HgtContolCreated === false){
+    if (HgtContolCreated === false) {
 
-        if(foundPatient === false){
+        if (foundPatient === false) {
             alert("error on finding patient");
         } else {
             let newcontrol = createControlHgt();
@@ -358,12 +358,12 @@ $("body").on("click", ".add_control_hgt_btn", function(){
             updateStoredPatientById(id, foundPatient);
             $(".controles_here").empty();
             renderControlesFromPatientId(id);
-    
+
             //scroll to div
             setTimeout(() => {
-                document.getElementById(newcontrol.date).scrollIntoView();  
+                document.getElementById(newcontrol.date).scrollIntoView();
             }, 500);
-           
+
         }
     } else {
 
@@ -371,44 +371,44 @@ $("body").on("click", ".add_control_hgt_btn", function(){
 
 })
 
-function renderControlesFromPatientId(id){
+function renderControlesFromPatientId(id) {
     let patientList = getStoredPatients();
     let found = findPatientById(id);
-    
+
     let balancerendered = false;
     let hgtrendered = false;
 
-    if(!found){
+    if (!found) {
 
     } else {
-        for(let i = 0; i < found.controls.length; i++){
+        for (let i = 0; i < found.controls.length; i++) {
 
-            if(found.controls[i].type === "hemodinamico"){
-    
+            if (found.controls[i].type === "hemodinamico") {
+
                 //check if tas value
                 let tasvalue;
                 let tadvalue;
                 let tamvalue;
-    
-               
-    
-                if(found.controls[i].ts === ""){
+
+
+
+                if (found.controls[i].ts === "") {
                     tasvalue = "TAS"
                 } else {
                     tasvalue = found.controls[i].ts
                 }
-    
-                if(found.controls[i].td === ""){
+
+                if (found.controls[i].td === "") {
                     tadvalue = "TAD"
                 } else {
                     tadvalue = found.controls[i].td
                 }
-    
+
                 tamvalue = calcTAM(+found.controls[i].ts, +found.controls[i].td);
-    
+
                 //time
-                let time = moment(found.controls[i].date).calendar();  
-    
+                let time = moment(found.controls[i].date).calendar();
+
                 $(".controles_here").append(`
                     <hr>
                     <div class="row w-100 mt-2 mx-auto control_hemodinamico_row entrance-scale" id="${found.controls[i].date}">
@@ -429,9 +429,9 @@ function renderControlesFromPatientId(id){
                     </div>
                 
                 `)
-            } else if (found.controls[i].type === "balance" && balancerendered === false){
+            } else if (found.controls[i].type === "balance" && balancerendered === false) {
                 //control balance
-    
+
                 $(".controles_here").append(`
                     <hr>
                     <div class="row w-100 mt-2 mx-auto control_hemodinamico_row entrance-scale" id="${found.controls[i].date}">
@@ -442,13 +442,13 @@ function renderControlesFromPatientId(id){
                                 <p>Ingresos VO</p>
                                 <div class="form-row text-center mx-auto" id="${i}">
                                     <a class="plus_vo_btn mx-auto" id="${found.info.id}">+</a>
-                                    <p class="mx-auto ivo">${found.controls[i].ivo*200} ml</p>
+                                    <p class="mx-auto ivo">${found.controls[i].ivo * 200} ml</p>
                                     <a class="minus_vo_btn mx-auto" id="${found.info.id}">-</a>   
                                 </div>
                                 <p>Ingresos EV</p>
                                 <div class="form-row text-center mx-auto" id="${i}">
                                     <a class="plus_ev_btn mx-auto" id="${found.info.id}">+</a>
-                                    <p class="mx-auto iev">${found.controls[i].iev*250} ml</p>
+                                    <p class="mx-auto iev">${found.controls[i].iev * 250} ml</p>
                                     <a class="minus_ev_btn mx-auto" id="${found.info.id}">-</a>   
                                 </div>
                                 <p>Catarsis</p>
@@ -460,7 +460,7 @@ function renderControlesFromPatientId(id){
                                 <p>Diuresis</p>
                                 <div class="form-row text-center mx-auto" id="${i}">
                                     <a class="plus_diu_btn mx-auto" id="${found.info.id}">+</a>
-                                    <p class="mx-auto diuresis">${found.controls[i].diu*100} ml</p>
+                                    <p class="mx-auto diuresis">${found.controls[i].diu * 100} ml</p>
                                     <a class="minus_diu_btn mx-auto" id="${found.info.id}">-</a>   
                                 </div>
                                 <p>Peso en kg</p>
@@ -474,10 +474,10 @@ function renderControlesFromPatientId(id){
                         </div>
                     </div>
                 `)
-    
+
                 balancerendered = true
-    
-            } else if (found.controls[i].type === "hgt"){
+
+            } else if (found.controls[i].type === "hgt") {
                 let sum = +found.controls[i].d.correccion + +found.controls[i].a.correccion + +found.controls[i].m.correccion + +found.controls[i].c.correccion;
                 $(".controles_here").append(`
                     <hr>
@@ -528,20 +528,20 @@ function renderControlesFromPatientId(id){
     }
 }
 
-function renderPendientesFromPatientId(id){
+function renderPendientesFromPatientId(id) {
     let found = findPatientById(id);
-    if(!found){
+    if (!found) {
 
     } else {
-        for(let i = 0; i <found.pendientes.length; i++){
+        for (let i = 0; i < found.pendientes.length; i++) {
 
             let priorityColor;
 
-            if(found.pendientes[i].priority === "green"){
+            if (found.pendientes[i].priority === "green") {
                 priorityColor = "btn-success"
-            } else if(found.pendientes[i].priority === "yellow"){
+            } else if (found.pendientes[i].priority === "yellow") {
                 priorityColor = "btn-warning"
-            } else if(found.pendientes[i].priority === "red"){
+            } else if (found.pendientes[i].priority === "red") {
                 priorityColor = "btn-danger"
             }
 
@@ -572,24 +572,24 @@ function renderPendientesFromPatientId(id){
 }
 
 
-$("body").on("click", ".calcular_balance", function(){
+$("body").on("click", ".calcular_balance", function () {
 
     let id = $(this).attr("id");
 
     let patient = findPatientById(id);
     let balanceIndex = findBalanceControlIndexInPatient(patient);
 
-  
+
     let foundBalanceControl = findBalanceInPatient(patient);
 
-    let ingresos = +foundBalanceControl.ivo*200 +  +foundBalanceControl.iev*250;
-    let aguaEndogena = +foundBalanceControl.peso/2 * 10;
+    let ingresos = +foundBalanceControl.ivo * 200 + +foundBalanceControl.iev * 250;
+    let aguaEndogena = +foundBalanceControl.peso / 2 * 10;
     console.log(ingresos, aguaEndogena);
 
     let totalIngresos = +ingresos + +aguaEndogena;
     console.log("total ingresos ", totalIngresos);
 
-    let egresos = +foundBalanceControl.cat*200 + +foundBalanceControl.diu*100;
+    let egresos = +foundBalanceControl.cat * 200 + +foundBalanceControl.diu * 100;
     console.log(egresos);
     let perdidasInsensibles = +foundBalanceControl.peso * 10;
     console.log(perdidasInsensibles);
@@ -603,7 +603,7 @@ $("body").on("click", ".calcular_balance", function(){
 
 })
 
-$("body").on("click", ".change_tas", function(){
+$("body").on("click", ".change_tas", function () {
 
     let id = $(this).attr("id");
     let controlIndex = $(this).parent().attr("id");
@@ -611,32 +611,32 @@ $("body").on("click", ".change_tas", function(){
 
     let promptval = prompt("Valor de presión arterial sistólica");
 
-    if(promptval === null){
-        $(this).text("TAS"); 
+    if (promptval === null) {
+        $(this).text("TAS");
     } else {
         $(this).text(promptval);
         //save on patient and localstorage
         let thisPatient = findPatientById(id);
         console.log(thisPatient, id);
         //rewrite ts value
-        if(!thisPatient || thisPatient === undefined || thisPatient === null){
+        if (!thisPatient || thisPatient === undefined || thisPatient === null) {
             alert("Error at retrieving patient");
         } else {
 
-            
+
             thisPatient.controls[controlIndex].ts = promptval
             updateStoredPatientById(id, thisPatient);
-  
-            if(thisPatient.controls[controlIndex].ts > 0 && thisPatient.controls[controlIndex].td > 0){
+
+            if (thisPatient.controls[controlIndex].ts > 0 && thisPatient.controls[controlIndex].td > 0) {
                 console.log("TAS ", calcTAM(thisPatient.controls[controlIndex].ts, thisPatient.controls[controlIndex].td).toFixed(0));
                 let tam = calcTAM(thisPatient.controls[controlIndex].ts, thisPatient.controls[controlIndex].td).toFixed(0);
                 thisPatient.controls[controlIndex].tam = tam;
 
                 //render on frontend
-                $(thisobj).parent().parent().find(".tam_value").text("TAM "+tam);
+                $(thisobj).parent().parent().find(".tam_value").text("TAM " + tam);
             }
 
-            
+
         }
     }
 
@@ -644,7 +644,7 @@ $("body").on("click", ".change_tas", function(){
 })
 
 
-$("body").on("click", ".change_tad", function(){
+$("body").on("click", ".change_tad", function () {
 
     let id = $(this).attr("id");
     let controlIndex = $(this).parent().attr("id");
@@ -652,43 +652,43 @@ $("body").on("click", ".change_tad", function(){
 
     let promptval = prompt("Valor de presión arterial diastólica");
 
-    if(promptval === null){
-        $(this).text("TAD"); 
+    if (promptval === null) {
+        $(this).text("TAD");
     } else {
         $(this).text(promptval);
         //save on patient and localstorage
         let thisPatient = findPatientById(id);
         console.log(thisPatient, id);
         //rewrite ts value
-        if(!thisPatient || thisPatient === undefined || thisPatient === null){
+        if (!thisPatient || thisPatient === undefined || thisPatient === null) {
             alert("Error at retrieving patient");
         } else {
 
-            
+
             thisPatient.controls[controlIndex].td = promptval
             updateStoredPatientById(id, thisPatient);
 
-            if(thisPatient.controls[controlIndex].ts > 0 && thisPatient.controls[controlIndex].td > 0){
+            if (thisPatient.controls[controlIndex].ts > 0 && thisPatient.controls[controlIndex].td > 0) {
                 console.log("TAD ", calcTAM(thisPatient.controls[controlIndex].ts, thisPatient.controls[controlIndex].td).toFixed(0));
                 let tam = calcTAM(thisPatient.controls[controlIndex].ts, thisPatient.controls[controlIndex].td).toFixed(0);
                 thisPatient.controls[controlIndex].tam = tam;
 
                 //render on frontend
-                $(thisobj).parent().parent().find(".tam_value").text("TAM "+ tam);
+                $(thisobj).parent().parent().find(".tam_value").text("TAM " + tam);
             }
 
         }
     }
 })
 
-$("body").on("click", ".plus_vo_btn", function(){
+$("body").on("click", ".plus_vo_btn", function () {
 
     let id = $(this).attr("id");
 
     let patient = findPatientById(id);
     let balanceIndex = findBalanceControlIndexInPatient(patient);
 
-  
+
     let foundBalanceControl = findBalanceInPatient(patient);
 
     let sum = +foundBalanceControl.ivo + 1;
@@ -698,21 +698,21 @@ $("body").on("click", ".plus_vo_btn", function(){
     updateStoredPatientById(id, patient);
 
     //frontend
-    $(".ivo").text(foundBalanceControl.ivo*200 + " ml")
+    $(".ivo").text(foundBalanceControl.ivo * 200 + " ml")
     $(".ivo").attr("class", "mx-auto ivo animateText1")
     setTimeout(() => {
         $(".ivo").attr("class", "mx-auto ivo")
     }, 200);
 })
 
-$("body").on("click", ".minus_vo_btn", function(){
+$("body").on("click", ".minus_vo_btn", function () {
 
     let id = $(this).attr("id");
 
     let patient = findPatientById(id);
     let balanceIndex = findBalanceControlIndexInPatient(patient);
 
-  
+
     let foundBalanceControl = findBalanceInPatient(patient);
 
     let sum = +foundBalanceControl.ivo - 1;
@@ -722,7 +722,7 @@ $("body").on("click", ".minus_vo_btn", function(){
     updateStoredPatientById(id, patient);
 
     //frontend
-    $(".ivo").text(foundBalanceControl.ivo*200 + " ml")
+    $(".ivo").text(foundBalanceControl.ivo * 200 + " ml")
     $(".ivo").attr("class", "mx-auto ivo animateText1")
     setTimeout(() => {
         $(".ivo").attr("class", "mx-auto ivo")
@@ -731,14 +731,14 @@ $("body").on("click", ".minus_vo_btn", function(){
 })
 
 
-$("body").on("click", ".plus_ev_btn", function(){
+$("body").on("click", ".plus_ev_btn", function () {
 
     let id = $(this).attr("id");
 
     let patient = findPatientById(id);
     let balanceIndex = findBalanceControlIndexInPatient(patient);
 
-  
+
     let foundBalanceControl = findBalanceInPatient(patient);
 
     let sum = +foundBalanceControl.iev + 1;
@@ -748,21 +748,21 @@ $("body").on("click", ".plus_ev_btn", function(){
     updateStoredPatientById(id, patient);
 
     //frontend
-    $(".iev").text(foundBalanceControl.iev*250 + " ml")
+    $(".iev").text(foundBalanceControl.iev * 250 + " ml")
     $(".iev").attr("class", "mx-auto iev animateText1")
     setTimeout(() => {
         $(".iev").attr("class", "mx-auto iev")
     }, 200);
 })
 
-$("body").on("click", ".minus_ev_btn", function(){
+$("body").on("click", ".minus_ev_btn", function () {
 
     let id = $(this).attr("id");
 
     let patient = findPatientById(id);
     let balanceIndex = findBalanceControlIndexInPatient(patient);
 
-  
+
     let foundBalanceControl = findBalanceInPatient(patient);
 
     let sum = +foundBalanceControl.iev - 1;
@@ -772,21 +772,21 @@ $("body").on("click", ".minus_ev_btn", function(){
     updateStoredPatientById(id, patient);
 
     //frontend
-    $(".iev").text(foundBalanceControl.iev*250 + " ml")
+    $(".iev").text(foundBalanceControl.iev * 250 + " ml")
     $(".iev").attr("class", "mx-auto iev animateText1")
     setTimeout(() => {
         $(".iev").attr("class", "mx-auto iev")
     }, 200);
 })
 
-$("body").on("click", ".plus_cat_btn", function(){
+$("body").on("click", ".plus_cat_btn", function () {
 
     let id = $(this).attr("id");
 
     let patient = findPatientById(id);
     let balanceIndex = findBalanceControlIndexInPatient(patient);
 
-  
+
     let foundBalanceControl = findBalanceInPatient(patient);
 
     let sum = +foundBalanceControl.cat + 1;
@@ -803,14 +803,14 @@ $("body").on("click", ".plus_cat_btn", function(){
     }, 200);
 })
 
-$("body").on("click", ".minus_cat_btn", function(){
+$("body").on("click", ".minus_cat_btn", function () {
 
     let id = $(this).attr("id");
 
     let patient = findPatientById(id);
     let balanceIndex = findBalanceControlIndexInPatient(patient);
 
-  
+
     let foundBalanceControl = findBalanceInPatient(patient);
 
     let sum = +foundBalanceControl.cat - 1;
@@ -827,14 +827,14 @@ $("body").on("click", ".minus_cat_btn", function(){
     }, 200);
 })
 
-$("body").on("click", ".plus_diu_btn", function(){
+$("body").on("click", ".plus_diu_btn", function () {
 
     let id = $(this).attr("id");
 
     let patient = findPatientById(id);
     let balanceIndex = findBalanceControlIndexInPatient(patient);
 
-  
+
     let foundBalanceControl = findBalanceInPatient(patient);
 
     let sum = +foundBalanceControl.diu + 1;
@@ -844,21 +844,21 @@ $("body").on("click", ".plus_diu_btn", function(){
     updateStoredPatientById(id, patient);
 
     //frontend
-    $(".diuresis").text(foundBalanceControl.diu*100 + " ml")
+    $(".diuresis").text(foundBalanceControl.diu * 100 + " ml")
     $(".diuresis").attr("class", "mx-auto diuresis animateText1")
     setTimeout(() => {
         $(".diuresis").attr("class", "mx-auto diuresis")
     }, 200);
 })
 
-$("body").on("click", ".minus_diu_btn", function(){
+$("body").on("click", ".minus_diu_btn", function () {
 
     let id = $(this).attr("id");
 
     let patient = findPatientById(id);
     let balanceIndex = findBalanceControlIndexInPatient(patient);
 
-  
+
     let foundBalanceControl = findBalanceInPatient(patient);
 
     let sum = +foundBalanceControl.diu - 1;
@@ -868,14 +868,14 @@ $("body").on("click", ".minus_diu_btn", function(){
     updateStoredPatientById(id, patient);
 
     //frontend
-    $(".diuresis").text(foundBalanceControl.diu*100 + " ml")
+    $(".diuresis").text(foundBalanceControl.diu * 100 + " ml")
     $(".diuresis").attr("class", "mx-auto diuresis animateText1")
     setTimeout(() => {
         $(".diuresis").attr("class", "mx-auto diuresis")
     }, 200);
 })
 
-$("body").on("click", ".peso", function(){
+$("body").on("click", ".peso", function () {
 
     let peso = prompt("Ingrese el peso del paciente");
 
@@ -891,7 +891,7 @@ $("body").on("click", ".peso", function(){
     let patient = findPatientById(id);
     let balanceIndex = findBalanceControlIndexInPatient(patient);
 
-  
+
     let foundBalanceControl = findBalanceInPatient(patient);
     foundBalanceControl.peso = peso;
 
@@ -901,16 +901,16 @@ $("body").on("click", ".peso", function(){
 })
 
 
-$("body").on("click", ".set_mi", function(){
+$("body").on("click", ".set_mi", function () {
     let id = $(this).attr("id");
 
-    if($(this).attr("class") === "card-header bg-white set_mi closed"){
+    if ($(this).attr("class") === "card-header bg-white set_mi closed") {
 
         $(".mi_textarea").show("fast");
         $(this).attr("class", "card-header bg-white set_mi opened")
         $(".mi_p_text").hide();
 
-    } else if ($(this).attr("class") === "card-header bg-white set_mi opened"){
+    } else if ($(this).attr("class") === "card-header bg-white set_mi opened") {
         //take value and render in <p> element
 
         let text = $(".mi_textarea").val();
@@ -929,16 +929,16 @@ $("body").on("click", ".set_mi", function(){
     }
 })
 
-$("body").on("click", ".set_atc", function(){
+$("body").on("click", ".set_atc", function () {
     let id = $(this).attr("id");
 
-    if($(this).attr("class") === "card-header bg-white set_atc closed"){
+    if ($(this).attr("class") === "card-header bg-white set_atc closed") {
 
         $(".atc_textarea").show("fast");
         $(this).attr("class", "card-header bg-white set_atc opened")
         $(".atc_p_text").hide();
 
-    } else if ($(this).attr("class") === "card-header bg-white set_atc opened"){
+    } else if ($(this).attr("class") === "card-header bg-white set_atc opened") {
         //take value and render in <p> element
 
         let text = $(".atc_textarea").val();
@@ -955,7 +955,7 @@ $("body").on("click", ".set_atc", function(){
     }
 })
 
-$("body").on("click", ".add_control_balance_btn", function(){
+$("body").on("click", ".add_control_balance_btn", function () {
 
     $("#controles_modal").modal("hide");
 
@@ -966,8 +966,8 @@ $("body").on("click", ".add_control_balance_btn", function(){
 
     let isThereBalanceControl = findBalanceInPatient(foundPatient);
 
-    if(isThereBalanceControl === false){
-        if(foundPatient === false){
+    if (isThereBalanceControl === false) {
+        if (foundPatient === false) {
             alert("error on finding patient");
         } else {
             let newcontrol = createControlBalance();
@@ -976,102 +976,102 @@ $("body").on("click", ".add_control_balance_btn", function(){
             $(".controles_here").empty();
             renderControlesFromPatientId(id);
         }
-    
-    } else {}
+
+    } else { }
 
 })
 
 
 //con el segundo paciente no puedo cargar ningun control ERROR EN ESTE LOOP DE MIERDA
-function findPatientById(id){
+function findPatientById(id) {
 
     let patientList = getStoredPatients();
     let foundPatient = false;
 
 
-    for(let i = 0; i < patientList.length; i++){
+    for (let i = 0; i < patientList.length; i++) {
 
-        if(patientList[i].info.id === id){
-       
+        if (patientList[i].info.id === id) {
+
             foundPatient = patientList[i];
 
-        } else {}
+        } else { }
     }
     return foundPatient;
 }
 
-function findPatientIndexById(id){
+function findPatientIndexById(id) {
     let patientList = getStoredPatients();
     let index = false;
 
-    for(let i = 0; i < patientList.length; i++){
-        if(patientList[i].info.id === id){
+    for (let i = 0; i < patientList.length; i++) {
+        if (patientList[i].info.id === id) {
             index = i;
-        } else {}
+        } else { }
     }
 
     return index;
 }
 
-function findBalanceInPatient(patient){
+function findBalanceInPatient(patient) {
     let balance = false;
-    for(let i = 0; i < patient.controls.length; i++){
-        if(patient.controls[i].type === "balance"){
-            balance =  patient.controls[i];
+    for (let i = 0; i < patient.controls.length; i++) {
+        if (patient.controls[i].type === "balance") {
+            balance = patient.controls[i];
         } else {
-      
+
         }
     }
 
     return balance;
 }
 
-function findBalanceControlIndexInPatient(patient){
+function findBalanceControlIndexInPatient(patient) {
     let found = false;
-    for(let i = 0; i < patient.controls.length; i++){
-        if(patient.controls[i].type === "balance"){
-            found =  i;
+    for (let i = 0; i < patient.controls.length; i++) {
+        if (patient.controls[i].type === "balance") {
+            found = i;
         } else {
-            
+
         }
     }
 
     return found;
 }
 
-function findHgtControlInPatient(patient){
+function findHgtControlInPatient(patient) {
     let hgt = false;
-    for(let i = 0; i < patient.controls.length; i++){
-        if(patient.controls[i].type === "hgt"){
-            hgt =  patient.controls[i];
+    for (let i = 0; i < patient.controls.length; i++) {
+        if (patient.controls[i].type === "hgt") {
+            hgt = patient.controls[i];
         } else {
-      
+
         }
     }
 
     return hgt;
 }
 
-function findHgtControlIndexInPatient(patient){
+function findHgtControlIndexInPatient(patient) {
     let found = false;
-    for(let i = 0; i < patient.controls.length; i++){
-        if(patient.controls[i].type === "hgt"){
-            found =  i;
+    for (let i = 0; i < patient.controls.length; i++) {
+        if (patient.controls[i].type === "hgt") {
+            found = i;
         } else {
-            
+
         }
     }
 
     return found;
 }
 
-function createControlHemodinamico(){
+function createControlHemodinamico() {
     let newcontrol = {
         type: "hemodinamico",
         date: new Date().getTime(),
         ts: "",
         td: "",
-        tam: ()=>{
+        tam: () => {
             let one = 2 * +this.td;
             let two = +one + +this.ts;
             let three = +two / 3
@@ -1082,7 +1082,7 @@ function createControlHemodinamico(){
     return newcontrol;
 }
 
-function createControlBalance(){
+function createControlBalance() {
     let newcontrol = {
         type: "balance",
         date: "",
@@ -1096,7 +1096,7 @@ function createControlBalance(){
     return newcontrol;
 }
 
-function createControlHgt(){
+function createControlHgt() {
     let newcontrol = {
         type: "hgt",
         date: new Date().getTime(),
@@ -1121,7 +1121,7 @@ function createControlHgt(){
     return newcontrol;
 }
 
-function createPendiente(){
+function createPendiente() {
     let newpendiente = {
         alertTime: {
             hs: 00,
@@ -1137,7 +1137,7 @@ function createPendiente(){
 
 
 
-$("body").on("click", ".hgtD", function(){
+$("body").on("click", ".hgtD", function () {
 
     let id = $(this).attr("id");
 
@@ -1150,7 +1150,7 @@ $("body").on("click", ".hgtD", function(){
 
     let newvalue = prompt("Introduzca el valor del HGT");
     console.log("newvalue ", newvalue);
-    if(newvalue === null){
+    if (newvalue === null) {
         newvalue = 0;
     }
 
@@ -1165,7 +1165,7 @@ $("body").on("click", ".hgtD", function(){
 
 })
 
-$("body").on("click", ".hgtA", function(){
+$("body").on("click", ".hgtA", function () {
 
     let id = $(this).attr("id");
 
@@ -1177,7 +1177,7 @@ $("body").on("click", ".hgtA", function(){
     let foundhgtControl = findHgtControlInPatient(patient);
 
     let newvalue = prompt("Introduzca el valor del HGT");
-    if(newvalue === null){
+    if (newvalue === null) {
         newvalue = 0;
     }
 
@@ -1191,7 +1191,7 @@ $("body").on("click", ".hgtA", function(){
 
 })
 
-$("body").on("click", ".hgtM", function(){
+$("body").on("click", ".hgtM", function () {
 
     let id = $(this).attr("id");
 
@@ -1203,7 +1203,7 @@ $("body").on("click", ".hgtM", function(){
     let foundhgtControl = findHgtControlInPatient(patient);
 
     let newvalue = prompt("Introduzca el valor del HGT");
-    if(newvalue === null){
+    if (newvalue === null) {
         newvalue = 0;
     }
 
@@ -1217,7 +1217,7 @@ $("body").on("click", ".hgtM", function(){
 
 })
 
-$("body").on("click", ".hgtC", function(){
+$("body").on("click", ".hgtC", function () {
 
     let id = $(this).attr("id");
 
@@ -1229,7 +1229,7 @@ $("body").on("click", ".hgtC", function(){
     let foundhgtControl = findHgtControlInPatient(patient);
 
     let newvalue = prompt("Introduzca el valor del HGT");
-    if(newvalue === null){
+    if (newvalue === null) {
         newvalue = 0;
     }
 
@@ -1243,7 +1243,7 @@ $("body").on("click", ".hgtC", function(){
 
 })
 
-$("body").on("click", ".correccionD", function(){
+$("body").on("click", ".correccionD", function () {
 
     let id = $(this).attr("id");
 
@@ -1255,7 +1255,7 @@ $("body").on("click", ".correccionD", function(){
     let foundhgtControl = findHgtControlInPatient(patient);
 
     let newvalue = prompt("Introduzca el valor de la corrección");
-    if(newvalue === null){
+    if (newvalue === null) {
         newvalue = 0;
     }
 
@@ -1270,7 +1270,7 @@ $("body").on("click", ".correccionD", function(){
 
 })
 
-$("body").on("click", ".correccionA", function(){
+$("body").on("click", ".correccionA", function () {
 
     let id = $(this).attr("id");
 
@@ -1282,7 +1282,7 @@ $("body").on("click", ".correccionA", function(){
     let foundhgtControl = findHgtControlInPatient(patient);
 
     let newvalue = prompt("Introduzca el valor de la corrección");
-    if(newvalue === null){
+    if (newvalue === null) {
         newvalue = 0;
     }
 
@@ -1296,7 +1296,7 @@ $("body").on("click", ".correccionA", function(){
     $(".correccionSum").text(+foundhgtControl.d.correccion + +foundhgtControl.a.correccion + +foundhgtControl.m.correccion + +foundhgtControl.c.correccion)
 })
 
-$("body").on("click", ".correccionM", function(){
+$("body").on("click", ".correccionM", function () {
 
     let id = $(this).attr("id");
 
@@ -1308,7 +1308,7 @@ $("body").on("click", ".correccionM", function(){
     let foundhgtControl = findHgtControlInPatient(patient);
 
     let newvalue = prompt("Introduzca el valor de la corrección");
-    if(newvalue === null){
+    if (newvalue === null) {
         newvalue = 0;
     }
 
@@ -1322,7 +1322,7 @@ $("body").on("click", ".correccionM", function(){
     $(".correccionSum").text(+foundhgtControl.d.correccion + +foundhgtControl.a.correccion + +foundhgtControl.m.correccion + +foundhgtControl.c.correccion)
 })
 
-$("body").on("click", ".correccionC", function(){
+$("body").on("click", ".correccionC", function () {
 
     let id = $(this).attr("id");
 
@@ -1334,7 +1334,7 @@ $("body").on("click", ".correccionC", function(){
     let foundhgtControl = findHgtControlInPatient(patient);
 
     let newvalue = prompt("Introduzca el valor de la corrección");
-    if(newvalue === null){
+    if (newvalue === null) {
         newvalue = 0;
     }
 
@@ -1350,7 +1350,7 @@ $("body").on("click", ".correccionC", function(){
 
 
 
-function updateStoredPatientById(id, newpatient){
+function updateStoredPatientById(id, newpatient) {
     let patientList = getStoredPatients();
     let patientIndex = findPatientIndexById(id);
 
@@ -1361,22 +1361,22 @@ function updateStoredPatientById(id, newpatient){
 }
 
 
-function calcTAM(ts, td){
+function calcTAM(ts, td) {
     let one = 2 * +td;
     let two = +one + +ts;
     let three = +two / 3
     return three;
 }
 
-$("body").on("click", ".change_bed", function(){
+$("body").on("click", ".change_bed", function () {
 
     let id = $(this).attr("id");
 
     let newbed = prompt("Ingrese nueva cama");
     let paciente = findPatientById(id);
-    
-    if(newbed === null){
-        
+
+    if (newbed === null) {
+
     } else {
         paciente.info.bed = newbed;
         console.log(paciente);
@@ -1389,7 +1389,7 @@ $("body").on("click", ".change_bed", function(){
     }
 })
 
-$("body").on("click", ".delete_patient", function(){
+$("body").on("click", ".delete_patient", function () {
 
     let id = $(this).attr("id");
 
@@ -1397,26 +1397,26 @@ $("body").on("click", ".delete_patient", function(){
 
     console.log(delete_patient);
 
-    if(delete_patient === true){
-      
+    if (delete_patient === true) {
+
         removePatientById(id);
-        $("#"+id).parent().remove();
-      
-    } else {}
+        $("#" + id).parent().remove();
+
+    } else { }
 
 })
 
-function removePatientById(id){
+function removePatientById(id) {
     let patientList = getStoredPatients();
     let index = false;
 
-    for(let i = 0; i < patientList.length; i++){
-        if(patientList[i].info.id === id){
+    for (let i = 0; i < patientList.length; i++) {
+        if (patientList[i].info.id === id) {
             index = i;
-        } else {}
+        } else { }
     }
 
-    if(index = false){
+    if (index = false) {
         console.log("cannot find patient to delete")
     } else {
         console.log("delete patient");
@@ -1426,12 +1426,12 @@ function removePatientById(id){
 }
 
 //toggle controles window
-$("body").on("click", ".toggle-controles", function(){
+$("body").on("click", ".toggle-controles", function () {
 
-    if($(this).attr("class") === "my-auto toggle-controles show"){
+    if ($(this).attr("class") === "my-auto toggle-controles show") {
         $(this).attr("class", "my-auto toggle-controles hidden");
         $(".controles_here").hide("fast");
-    } else if ($(this).attr("class") === "my-auto toggle-controles hidden"){
+    } else if ($(this).attr("class") === "my-auto toggle-controles hidden") {
         $(this).attr("class", "my-auto toggle-controles show");
         $(".controles_here").show("fast");
     }
@@ -1439,7 +1439,7 @@ $("body").on("click", ".toggle-controles", function(){
 })
 
 
-$("body").on("click", ".add_pendiente", function(){
+$("body").on("click", ".add_pendiente", function () {
 
     let id = $(this).attr("id");
     let foundPatient = findPatientById(id);
@@ -1453,7 +1453,7 @@ $("body").on("click", ".add_pendiente", function(){
 })
 
 
-$("body").on("click", ".pending_title", function(){
+$("body").on("click", ".pending_title", function () {
 
     let index = $(this).attr("id");
     let id = $(".pendientes_here").attr("id");
@@ -1461,7 +1461,7 @@ $("body").on("click", ".pending_title", function(){
     let title = prompt("Nombre del pendiente");
     console.log(title)
 
-    if(title === null){
+    if (title === null) {
 
     } else {
         foundPatient.pendientes[index].title = title
@@ -1469,19 +1469,19 @@ $("body").on("click", ".pending_title", function(){
         updateStoredPatientById(id, foundPatient);
     }
 
-    
+
 
 })
 
 
-$("body").on("click", ".hs_btn", function(){
+$("body").on("click", ".hs_btn", function () {
 
     let index = $(this).attr("id");
     let id = $(".pendientes_here").attr("id");
     let foundPatient = findPatientById(id);
     let title = prompt("Hora");
 
-    if(title === null){
+    if (title === null) {
 
     } else {
         foundPatient.pendientes[index].alertTime.hs = title;
@@ -1491,17 +1491,17 @@ $("body").on("click", ".hs_btn", function(){
 
 })
 
-$("body").on("click", ".min_btn", function(){
+$("body").on("click", ".min_btn", function () {
 
     let index = $(this).attr("id");
     let id = $(".pendientes_here").attr("id");
     let foundPatient = findPatientById(id);
     let title = prompt("Hora");
-    let pendigTitle = $(".pendientes_here").find("#"+index + ".pending_title").text();
+    let pendigTitle = $(".pendientes_here").find("#" + index + ".pending_title").text();
 
     console.log("pending title ", pendigTitle)
 
-    if(title === null){
+    if (title === null) {
 
     } else {
         foundPatient.pendientes[index].alertTime.min = title;
@@ -1511,10 +1511,10 @@ $("body").on("click", ".min_btn", function(){
     }
 })
 
-function createPendienteAlarm(id, index, time, title){
+function createPendienteAlarm(id, index, time, title) {
 
     let alarmObject = {
-        alarmID: index+id,
+        alarmID: index + id,
         id: id,
         index: index,
         initTime: time,
